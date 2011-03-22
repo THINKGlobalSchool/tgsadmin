@@ -49,6 +49,9 @@ function tgsadmin_init() {
 		}
 	}
 	
+	// Actions	
+	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
+	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
 }
 
 /* Autofriend event */ 
@@ -74,6 +77,7 @@ function autofriend_event($event, $object_type, $object) {
 /* TGSAdmin pagesetup */
 function tgsadmin_setup_menu() {
 	if (elgg_in_context('admin')) {
+		elgg_register_admin_menu_item('administer', 'assign', 'users');
 		// Not using this yet
 		//elgg_register_admin_menu_item('administer', 'settings', 'tgsadmin');
 	}
