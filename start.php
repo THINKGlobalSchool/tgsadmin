@@ -11,11 +11,15 @@
  * Provides the following features/functionality
  * - Autofriend: new users are automatically 'friended' with all of the other sites users
  * - Maintenance Mode: allows admins to take an elgg site down and display a maintenance message to regular users
- *
+ * - Assign: Allows admins to easily assign users to groups and channels
+ * - External Links: Externallinks will open in a new tab/window
  */
 
 // Register init event 
 elgg_register_event_handler('init', 'system', 'tgsadmin_init');
+
+// Registering for the 'ready' system event for externallinks
+elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
 
 /* TGSAdmin Init */
 function tgsadmin_init() {
@@ -52,6 +56,17 @@ function tgsadmin_init() {
 	// Actions	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
+}
+
+/* External links init */
+function tgsadmin_externallinks_init() {	
+	if (elgg_get_plugin_setting('enable_externallinks', 'tgsadmin') == 'yes') {
+		$js = elgg_get_simplecache_url('js', 'tgsadmin/externallinks');
+		elgg_register_js('elgg.externallinks', $js);
+		elgg_load_js('elgg.externallinks');
+	}
+	
+	return true;
 }
 
 /* Autofriend event */ 

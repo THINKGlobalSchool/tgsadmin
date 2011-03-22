@@ -14,6 +14,10 @@ if (!isset($vars['entity']->enable_autofriend)) {
 	$vars['entity']->enable_autofriend = 'no';
 }
 
+if (!isset($vars['entity']->enable_externallinks)) {
+	$vars['entity']->enable_externallinks = 'no';
+}
+
 if (!isset($vars['entity']->enable_maintenance)) {
 	$vars['entity']->enable_maintenance = 'no';
 }
@@ -31,6 +35,21 @@ echo elgg_view('input/dropdown', array(
 		'value' => $vars['entity']->enable_autofriend,
 ));
 echo '</div>';
+
+// Externallinks
+echo '<div>';
+echo elgg_echo('tgsadmin:label:enableexternallinks');
+echo ' ';
+echo elgg_view('input/dropdown', array(
+		'name' => 'params[enable_externallinks]',
+		'options_values' => array(
+			'no' => elgg_echo('option:no'),
+			'yes' => elgg_echo('option:yes')
+			),
+		'value' => $vars['entity']->enable_externallinks,
+));
+echo '</div>';
+
 
 // Maintenance Mode
 echo '<div>';

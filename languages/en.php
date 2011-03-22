@@ -19,6 +19,7 @@ $english = array(
 	// Labels
 	'tgsadmin:label:enableautofriend' => 'Enable autofriend',
 	'tgsadmin:label:enablemaintenance' => 'Enable maintenance mode',
+	'tgsadmin:label:enableexternallinks' => 'Enable external links (open external links in new window)',
 	'tgsadmin:label:mmtitle' => 'Maintenance Title',
 	'tgsadmin:label:mmmessage' => 'Maintenance Message',
 	'tgsadmin:label:assignusers' => 'Select Users',
