@@ -2,7 +2,7 @@
 /**
  * Elgg TGSAdmin english translation
  *
- * @package ElggAutoFriend
+ * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
  * @copyright Think Global School 2009-2010
@@ -17,6 +17,9 @@ $english = array(
 	
 	// Labels
 	'tgsadmin:label:enableautofriend' => 'Enable autofriend',
+	'tgsadmin:label:enablemaintenance' => 'Enable maintenance mode',
+	'tgsadmin:label:mmtitle' => 'Maintenance Title',
+	'tgsadmin:label:mmmessage' => 'Maintenance Message',
 	
 );
 
