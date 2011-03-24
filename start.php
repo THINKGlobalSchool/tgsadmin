@@ -13,6 +13,13 @@
  * - Maintenance Mode: allows admins to take an elgg site down and display a maintenance message to regular users
  * - Assign: Allows admins to easily assign users to groups and channels
  * - External Links: Externallinks will open in a new tab/window
+ * 
+ * Also includes the following tweaks from the tgstweaks plugin
+ * - Extend river wrapper to show which access level/group each entry belongs to
+ * - Extend messages view to add next/previous buttons
+ * 
+ * The following views have been added/overidden
+ * - river/object/file/create (to show old files entries)
  */
 
 // Register init event 
@@ -21,7 +28,9 @@ elgg_register_event_handler('init', 'system', 'tgsadmin_init');
 // Registering for the 'ready' system event for externallinks
 elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
 
-/* TGSAdmin Init */
+/**
+ * TGSAdmin Init
+ */
 function tgsadmin_init() {
 	
 	elgg_register_library('elgg:tgsadmin', elgg_get_plugins_path() . 'tgsadmin/lib/tgsadmin.php');
@@ -36,7 +45,6 @@ function tgsadmin_init() {
 	elgg_register_event_handler('create', 'user', 'autofriend_event',501);
 	
 	/* MAINTENANCE MODE */
-	
 	// If logged in user isn't an admin, forward to mainenance page
 	if (elgg_get_plugin_setting('enable_maintenance', 'tgsadmin') == 'yes') {
 		if (!elgg_is_admin_logged_in() && elgg_is_logged_in()) {
@@ -53,12 +61,28 @@ function tgsadmin_init() {
 		}
 	}
 	
-	// Actions	
+	/* TGS TWEAKS */
+	// Include the access level in the river item view
+	elgg_extend_view('css/elgg', 'tweaks/css');
+	
+	// 1. Grab and store entity before the view overwrites the $view variable
+	elgg_extend_view('river/item', 'tweaks/channeldisplay_pre', 0);
+	// 2. Spit out the data
+	elgg_extend_view('river/item', 'tweaks/channeldisplay_post', 501);
+	
+	// Include the messages navigation 
+	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
+
+	
+	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
 }
 
-/* External links init */
+/**
+ * External links init
+ * @return bool
+ */
 function tgsadmin_externallinks_init() {	
 	if (elgg_get_plugin_setting('enable_externallinks', 'tgsadmin') == 'yes') {
 		$js = elgg_get_simplecache_url('js', 'tgsadmin/externallinks');
@@ -69,7 +93,9 @@ function tgsadmin_externallinks_init() {
 	return true;
 }
 
-/* Autofriend event */ 
+/**
+ * Autofriend event 
+ */
 function autofriend_event($event, $object_type, $object) {	
 	// Only if this is enabled
 	if (elgg_get_plugin_setting('enable_autofriend', 'tgsadmin') == 'yes') {
@@ -89,7 +115,9 @@ function autofriend_event($event, $object_type, $object) {
 	}
 }
 
-/* TGSAdmin pagesetup */
+/**
+ * TGSAdmin pagesetup
+ */
 function tgsadmin_setup_menu() {
 	if (elgg_in_context('admin')) {
 		elgg_register_admin_menu_item('administer', 'assign', 'users');
