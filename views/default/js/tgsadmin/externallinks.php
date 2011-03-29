@@ -20,7 +20,7 @@ elgg.externallinks.checkExceptions = function(str) {
 	);
 	
 	for (exception in exceptions) {
-		var p = new RegExp(exception, ["i"]);
+		var p = new RegExp(exceptions[exception], ["i"]);
 		if (p.exec(str)) {
 			return true; // Return true if we match
 		}
