@@ -10,9 +10,7 @@
  *
  */
 
-$entity = $river_channel_entity;
-
-switch ($entity->access_id) {
+switch ($item->access_id) {
 	case -1: 
 		$content = 'Default';
 		break;
@@ -29,11 +27,12 @@ switch ($entity->access_id) {
 		$content = 'Friends Only';
 		break;
 	default:
-		$acl = get_access_collection($entity->access_id);
+		$acl = get_access_collection($item->access_id);
 		$content = $acl->name;
 		break;
 }
 ?>
-<div class='channel-display'>
+<div class='river-access-display'>
 	<?php echo $content; ?>
 </div>
+<div class='clearfix'></div>

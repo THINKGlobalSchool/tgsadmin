@@ -65,10 +65,8 @@ function tgsadmin_init() {
 	// Include the access level in the river item view
 	elgg_extend_view('css/elgg', 'tweaks/css');
 	
-	// 1. Grab and store entity before the view overwrites the $view variable
-	elgg_extend_view('river/item', 'tweaks/channeldisplay_pre', 0);
-	// 2. Spit out the data
-	elgg_extend_view('river/item', 'tweaks/channeldisplay_post', 501);
+	// Extend river item view
+	elgg_extend_view('river/item', 'tweaks/access_display', 501);
 	
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');

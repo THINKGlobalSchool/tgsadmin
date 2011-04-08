@@ -9,12 +9,11 @@
  * @link http://www.thinkglobalschool.com
  */
 ?>
-.channel-display {
-    line-height:1.4em;
+.river-access-display {
+    line-height:1em;
     font-size: 11px;
     color: #666666;
     float: right;
-    cleat: both;
-    position: relative;
-    top: -20px;
+	position: relative;
+	top: -10px;
 }
