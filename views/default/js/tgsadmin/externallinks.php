@@ -10,7 +10,7 @@
  *
  */
 ?>
-
+//<script>
 elgg.provide('elgg.externallinks');
 
 // Check agains pre-defined exceptions (facebook for now)
@@ -64,3 +64,4 @@ elgg.externallinks.init = function() {
 }
 
 elgg.register_hook_handler('init', 'system', elgg.externallinks.init);
+//</script>

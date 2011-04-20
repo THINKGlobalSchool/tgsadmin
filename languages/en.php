@@ -24,12 +24,17 @@ $english = array(
 	'tgsadmin:label:mmmessage' => 'Maintenance Message',
 	'tgsadmin:label:assignusers' => 'Select Users',
 	'tgsadmin:label:assigngroups' => 'Assign To',
+	'tgsadmin:label:unassign' => 'Unassign Users',
+	'tgsadmin:label:selectgroup' => 'Select Group',
+	'tgsadmin:label:remove' => 'Remove',
 	
 	// Confirmation
 	'tgsadmin:confirm:assigned' => 'Users successfully assigned to %s',
+	'tgsadmin:confirm:unassigned' => 'User successfully unassigned',
 	
 	// Error 
 	'tgsadmin:error:missing' => 'Required fields missing: Need at least one user',
+	'tgsadmin:error:invalidusergroup' => 'Invalid user or group',
 	
 );
 

@@ -38,6 +38,7 @@ function get_assign_groups() {
 	}
 	
 	$dropdown = array();
+	$dropdown[0] = 'Select..';
 
 	foreach ($groups as $group) {
 		$dropdown[$group->getGUID()] = $group->title ? "Channel: " . $group->title : "Group: " . $group->name;

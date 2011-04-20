@@ -70,11 +70,15 @@ function tgsadmin_init() {
 	
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
+	
+	/* Assign/Unassign */
+	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
 
 	
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
+	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 }
 
 /**
