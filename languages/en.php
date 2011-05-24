@@ -15,6 +15,7 @@ $english = array(
 	'admin:tgsadmin' => 'TGS Admin',
 	'admin:tgsadmin:settings' => 'Settings',
 	'admin:users:assign' => 'Assign Users',
+	'admin:plugins:category:tgs' => 'TGS',
 	
 	// Labels
 	'tgsadmin:label:enableautofriend' => 'Enable autofriend',
@@ -27,6 +28,7 @@ $english = array(
 	'tgsadmin:label:unassign' => 'Unassign Users',
 	'tgsadmin:label:selectgroup' => 'Select Group',
 	'tgsadmin:label:remove' => 'Remove',
+
 	
 	// Confirmation
 	'tgsadmin:confirm:assigned' => 'Users successfully assigned to %s',

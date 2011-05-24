@@ -4,6 +4,7 @@
 	<author>Jeff Tilson</author>
 	<version>1.8</version>
 	<category>admin</category>
+	<category>tgs</category>
 	<blurb>Elgg TGS admin plugin</blurb>
 	<description>Provided TGS Specific admin features (autofriend, assign, maintenance mode, tweaks, etc..)</description>
 	<website>http://www.thinkglobalschool.org</website>
