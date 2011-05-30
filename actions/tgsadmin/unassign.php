@@ -20,6 +20,8 @@ if (!elgg_instanceof($user, 'user') || !(elgg_instanceof($entity, 'group') || el
 }
 
 if (elgg_instanceof($entity, 'group')) {
+	// Set group as page owner to handle ACL's properly
+	elgg_set_page_owner_guid($entity->guid);
 	// Leave group
 	leave_group($entity->getGUID(), $user->getGUID());
 } else if (elgg_instanceof($entity, 'object', 'shared_access')) {

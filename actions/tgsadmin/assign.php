@@ -24,7 +24,17 @@ if (empty($users) || !$group_guid) {
 $group = get_entity($group_guid);
 
 foreach ($users as $user) {
-	add_entity_relationship($user, $group instanceof ElggGroup ? 'member' : 'shared_access_member', $group_guid);
+	if (elgg_instanceof($group, 'group')) {
+		// Set group as page owner to handle ACL's properly
+		elgg_set_page_owner_guid($group->guid);
+		elgg_set_ignore_access(TRUE);
+		set_page_owner($group->guid);
+		$group->join($user_entity);
+		elgg_set_ignore_access(FALSE);
+	} else {
+		// Channel
+		add_entity_relationship($user, 'shared_access_member', $group_guid);
+	}
 }
 	
 system_message(elgg_echo("tgsadmin:confirm:assigned"));
