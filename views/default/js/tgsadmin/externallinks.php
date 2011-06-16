@@ -16,8 +16,7 @@ elgg.provide('elgg.externallinks');
 // Check agains pre-defined exceptions (facebook for now)
 elgg.externallinks.checkExceptions = function(str) {
 	var exceptions = new Array(
-		'.*?(www\\.facebook\\.com)(\\/)(login\\.php)', // Facebook login exception
-		'.*?(www\\.kaltura\\.com)(\\/)(index\\.php)(\\/)(kwidget)' // Kaltura exception
+		'.*?(www\\.facebook\\.com)(\\/)(login\\.php)' // Facebook login exception
 	);
 	
 	for (exception in exceptions) {
@@ -26,6 +25,24 @@ elgg.externallinks.checkExceptions = function(str) {
 			return true; // Return true if we match
 		}
 	}
+}
+
+elgg.externallinks.isValidExternalLink = function(a) {
+	var url = elgg.externallinks.trimProtocol("<?php global $CONFIG; echo $CONFIG->wwwroot; ?>");
+	var href = elgg.externallinks.trimProtocol(a.attr('href'));
+	
+	if (href 
+		&& a.attr('href').startsWith("http") 
+		&& !elgg.externallinks.checkExceptions(href)
+		&& !href.startsWith(url)
+		&& !a.hasClass('elgg-toggler') 	// Check for elgg-toggler class
+		&& !a.hasClass('elgg-lightbox')	// Check for elgg-lightbox class
+		&& a.attr('rel') != 'popup')  	// Check for rel=popup
+	{					
+		return true; 
+	}
+
+	return false;
 }
 
 // Check if string starts with str
@@ -47,21 +64,13 @@ elgg.externallinks.trimProtocol = function(str) {
 }
 
 elgg.externallinks.init = function() {
-	$(document).ready(function() {	
-		$("a").click(
-			function () {
-				var url = elgg.externallinks.trimProtocol("<?php global $CONFIG; echo $CONFIG->wwwroot; ?>");
-				var href = elgg.externallinks.trimProtocol($(this).attr('href'));
-
-				if (href && $(this).attr('href').startsWith("http") && !elgg.externallinks.checkExceptions(href)) {					
-					if (!href.startsWith(url)) {
-						window.open($(this).attr('href'));
-						return false;
-					} 
-				}
+		$("a").click(function (event) {
+			if (elgg.externallinks.isValidExternalLink($(this))) {
+				window.open($(this).attr('href'));
+				return false;
 			}
-		);
-	});	
+			//event.preventDefault();
+		});
 }
 
 elgg.register_hook_handler('init', 'system', elgg.externallinks.init);
