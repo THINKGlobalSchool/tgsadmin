@@ -75,10 +75,24 @@ function tgsadmin_init() {
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
 
 	
+	/* TGS WIRE */	
+	if (elgg_get_plugin_setting('post_from_activity_stream', 'tgsadmin') == 'yes' && elgg_is_logged_in()) {
+		// Extend core river filter
+		elgg_extend_view('core/river/filter', 'tweaks/wire_form', -100);
+	}
+	
+	if (elgg_get_plugin_setting('show_wire_menu', 'tgsadmin') == 'no') {
+		// Register hook to remove the wire from the site menu
+		elgg_register_plugin_hook_handler('register', 'menu:site', 'tgsadmin_site_menu_setup');
+	}
+	
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
+	
+	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/thewire';
+	elgg_register_action("thewire/add", "$action_base/add.php");
 }
 
 /**
@@ -126,4 +140,17 @@ function tgsadmin_setup_menu() {
 		// Not using this yet
 		//elgg_register_admin_menu_item('administer', 'settings', 'tgsadmin');
 	}
+}
+
+/**
+ * Remove the wire from the site menu
+ */
+function tgsadmin_site_menu_setup($hook, $type, $return, $params) {
+	foreach($return as $idx => $item) {
+		if ($item->getName() == 'thewire') {
+			unset($return[$idx]);
+		}
+	}
+	
+	return $return;
 }
