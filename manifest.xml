@@ -14,16 +14,6 @@
 		<type>elgg_version</type>
 		<version>2011032200</version>
 	</requires>
-	<requires>
-		<type>priority</type>
-		<priority>after</priority>
-		<plugin>thewire</plugin>
-	</requires>
-	<requires>
-		<type>priority</type>
-		<priority>after</priority>
-		<plugin>groups</plugin>
-	</requires>
 	<admin_interface>simple</admin_interface>
 	<activate_on_install>true</activate_on_install>
 </plugin_manifest>

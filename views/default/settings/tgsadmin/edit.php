@@ -22,18 +22,6 @@ if (!isset($vars['entity']->enable_maintenance)) {
 	$vars['entity']->enable_maintenance = 'no';
 }
 
-if (!isset($vars['entity']->limit_wire_chars)) {
-	$vars['entity']->limit_wire_chars = 'yes';
-}
-
-if (!isset($vars['entity']->post_from_activity_stream)) {
-	$vars['entity']->post_from_activity_stream = 'no';
-}
-
-if (!isset($vars['entity']->show_wire_menu)) {
-	$vars['entity']->show_wire_menu = 'yes';
-}
-
 // Autofriend
 echo '<div><br />';
 echo '<h3>' . elgg_echo('tgsadmin:label:settings:autofriend') . '</h3><br />';
@@ -95,47 +83,5 @@ echo '<br /> ';
 echo elgg_view('input/plaintext', array(
 		'name' => 'params[maintenance_message]',
 		'value' => $vars['entity']->maintenance_message,
-));
-echo '</div>';
-
-
-// Custom wire settings
-echo '<div>';
-echo '<h3>' . elgg_echo('tgsadmin:label:settings:wiresettings') . '</h3><br />';
-echo elgg_echo('tgsadmin:label:thewire:limitchars'); 
-echo ' ';
-echo elgg_view('input/dropdown', array(
-		'internalname' => 'params[limit_wire_chars]',
-		'options_values' => array(
-			'no' => elgg_echo('option:no'),
-			'yes' => elgg_echo('option:yes')
-			),
-		'value' => $vars['entity']->limit_wire_chars
-));
-echo '</div>';
-	
-echo '<div>';
-echo elgg_echo('tgsadmin:label:thewire:postfromactivitystream');
-echo ' ';
-echo elgg_view('input/dropdown', array(
-		'internalname' => 'params[post_from_activity_stream]',
-		'options_values' => array(
-			'no' => elgg_echo('option:no'),
-			'yes' => elgg_echo('option:yes')
-			),
-		'value' => $vars['entity']->post_from_activity_stream
-));
-echo '</div>';
-	
-echo '<div>';
-echo elgg_echo('tgsadmin:label:thewire:showinmenu');
-echo ' ';
-echo elgg_view('input/dropdown', array(
-		'internalname' => 'params[show_wire_menu]',
-		'options_values' => array(
-			'no' => elgg_echo('option:no'),
-			'yes' => elgg_echo('option:yes')
-			),
-		'value' => $vars['entity']->show_wire_menu
 ));
 echo '</div>';

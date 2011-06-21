@@ -31,14 +31,7 @@ $english = array(
 	'tgsadmin:label:settings:autofriend' => 'Autofriend Settings',
 	'tgsadmin:label:settings:externalsettings' => 'External Links Settings',
 	'tgsadmin:label:settings:maintenancesettings' => 'Maintenance Mode Settings',
-	'tgsadmin:label:settings:wiresettings' => 'Wire Settings',
-	'tgsadmin:label:thewire:showinmenu' => 'Show The Wire in the main menu?',
-	'tgsadmin:label:thewire:postfromactivitystream' => 'Allow posting directly from activity stream?',
-	'tgsadmin:label:thewire:limitchars' => 'Limit posts to 140 characters?',
-	'tgsadmin:label:thewire:doing' => "Something to say? Something to share? Go for it.",
-	'tgsadmin:label:thewire:access' => "For: ",
-	'tgsadmin:label:thewire:tips' => 'Tip: Tag posts by putting a # in front of a word.',
-	
+
 	// Confirmation
 	'tgsadmin:confirm:assigned' => 'Users successfully assigned to %s',
 	'tgsadmin:confirm:unassigned' => 'User successfully unassigned',
