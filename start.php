@@ -17,9 +17,11 @@
  * Also includes the following tweaks from the tgstweaks plugin
  * - Extend river wrapper to show which access level/group each entry belongs to
  * - Extend messages view to add next/previous buttons
+ * - Better looking tag cloud
  * 
  * The following views have been added/overidden
  * - river/object/file/create (to show old files entries)
+ * - output/tagcloud
  */
 
 // Register init event 
