@@ -18,6 +18,7 @@
  * - Extend river wrapper to show which access level/group each entry belongs to
  * - Extend messages view to add next/previous buttons
  * - Better looking tag cloud
+ * - Add groups to activity sidebar
  * 
  * The following views have been added/overidden
  * - river/object/file/create (to show old files entries)
@@ -72,6 +73,9 @@ function tgsadmin_init() {
 	
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
+	
+	// Extend Sidebar
+	elgg_extend_view('page/elements/sidebar', 'tweaks/sidebar', 502);
 	
 	/* Assign/Unassign */
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');

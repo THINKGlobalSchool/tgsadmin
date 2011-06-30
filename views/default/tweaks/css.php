@@ -15,5 +15,5 @@
     color: #666666;
     float: right;
 	position: relative;
-	top: -10px;
+	top: -6px;
 }

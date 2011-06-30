@@ -32,6 +32,8 @@ $english = array(
 	'tgsadmin:label:settings:externalsettings' => 'External Links Settings',
 	'tgsadmin:label:settings:maintenancesettings' => 'Maintenance Mode Settings',
 
+	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
+
 	// Confirmation
 	'tgsadmin:confirm:assigned' => 'Users successfully assigned to %s',
 	'tgsadmin:confirm:unassigned' => 'User successfully unassigned',
