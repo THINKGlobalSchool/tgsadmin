@@ -75,7 +75,7 @@ function tgsadmin_init() {
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
 	
 	// Extend Sidebar
-	elgg_extend_view('page/elements/sidebar', 'tweaks/sidebar', 502);
+	//elgg_extend_view('page/elements/sidebar', 'tweaks/sidebar', 502);
 	
 	/* Assign/Unassign */
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
