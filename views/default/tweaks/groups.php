@@ -48,12 +48,4 @@ if (elgg_is_logged_in() && elgg_get_context() == 'activity') {
 
 	// Groups module
 	echo elgg_view_module('aside', elgg_echo('groups'), $content);
-	
-	$tags = elgg_get_tags(array('threshold' => 2, 'limit' => 150));
-	
-	// Shuffle tags
-	shuffle($tags);
-	
-	// Tag Module
-	echo elgg_view_module('aside', elgg_echo('tagcloud'), elgg_view("output/tagcloud", array('value' => $tags)));
 }
