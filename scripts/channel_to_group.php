@@ -44,7 +44,7 @@ GUID: " . $group->guid . " ACL: " . $group->group_acl."
 
 		// Set entities container_guid and ACL
 		foreach($entities as $entity) {
-			if ($entity->getSubtype != "tidypics_batch" && $entity->getSubtype != "image") {
+			if ($entity->getSubtype != "tidypics_batch" && $entity->getSubtype != "image" && $entity->getSubtype != "site_activity") {
 				$entity->container_guid = $group->guid;
 				$entity->access_id = $group->group_acl;
 				if ($entity->save()) {
