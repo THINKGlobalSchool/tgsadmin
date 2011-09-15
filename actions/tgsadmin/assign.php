@@ -29,6 +29,9 @@ foreach ($users as $user) {
 		elgg_set_page_owner_guid($group->guid);
 		elgg_set_ignore_access(TRUE);
 		set_page_owner($group->guid);
+		
+		$user_entity = get_entity($user);
+		
 		$group->join($user_entity);
 		elgg_set_ignore_access(FALSE);
 	} else {
