@@ -67,6 +67,13 @@ function tgsadmin_init() {
 	// Extend user hover menu to add admin features
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'tgsadmin_user_hover_menu_setup');
 	
+	// Unresister forgotpassword page handler
+	elgg_unregister_page_handler('forgotpassword');
+	
+	// Register new page hanler 
+	elgg_register_page_handler('forgotpassword', 'tgsadmin_forgotpassword_page_handler');
+	
+	
 	/* TGS TWEAKS */
 	// Include the access level in the river item view
 	elgg_extend_view('css/elgg', 'tweaks/css');
@@ -87,6 +94,7 @@ function tgsadmin_init() {
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
+	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
 }
 
 /**
@@ -152,4 +160,28 @@ function tgsadmin_user_hover_menu_setup($hook, $type, $return, $params) {
 	$return[] = ElggMenuItem::factory($options);
 	
 	return $return;
+}
+
+/**
+ * Page handler for forgotten passwords
+ *
+ * @param array  $page_elements Page elements
+ * @param string $handler The handler string
+ *
+ * @return void
+ */
+function tgsadmin_forgotpassword_page_handler($page_elements, $handler) {
+	if (elgg_is_logged_in()) {
+		forward();
+	}
+
+	$title = elgg_echo("user:password:lost");
+	$content = elgg_view_title($title);
+
+	$content .= elgg_view_form('tgsadmin/requestnewpassword', array(
+		'class' => 'elgg-form-account',
+	));
+
+	$body = elgg_view_layout("one_column", array('content' => $content));
+	echo elgg_view_page($title, $body);
 }

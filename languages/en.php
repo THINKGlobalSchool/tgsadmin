@@ -32,6 +32,8 @@ $english = array(
 	'tgsadmin:label:settings:externalsettings' => 'External Links Settings',
 	'tgsadmin:label:settings:maintenancesettings' => 'Maintenance Mode Settings',
 	'tgsadmin:label:editusersettings' => 'Edit settings',
+	'tgsadmin:label:usernameemail' => 'Username -or- Email',
+	'tgsadmin:password:text' => 'To request a new password, enter your username or email below and click the Request button.',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 
