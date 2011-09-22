@@ -64,6 +64,9 @@ function tgsadmin_init() {
 		}
 	}
 	
+	// Extend user hover menu to add admin features
+	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'tgsadmin_user_hover_menu_setup');
+	
 	/* TGS TWEAKS */
 	// Include the access level in the river item view
 	elgg_extend_view('css/elgg', 'tweaks/css');
@@ -131,4 +134,22 @@ function tgsadmin_setup_menu() {
 		// Not using this yet
 		//elgg_register_admin_menu_item('administer', 'settings', 'tgsadmin');
 	}
+}
+
+/**
+ * Extend the user hover menu
+ */
+function tgsadmin_user_hover_menu_setup($hook, $type, $return, $params) {
+	
+	$user = $params['entity'];
+	
+	$options = array(
+		'name' => 'admin_edit_user',
+		'text' => elgg_echo('tgsadmin:label:editusersettings'),
+		'href' => 'settings/user/' . $params['entity']->username,
+		'section' => 'admin',
+	);
+	$return[] = ElggMenuItem::factory($options);
+	
+	return $return;
 }

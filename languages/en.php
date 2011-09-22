@@ -31,6 +31,7 @@ $english = array(
 	'tgsadmin:label:settings:autofriend' => 'Autofriend Settings',
 	'tgsadmin:label:settings:externalsettings' => 'External Links Settings',
 	'tgsadmin:label:settings:maintenancesettings' => 'Maintenance Mode Settings',
+	'tgsadmin:label:editusersettings' => 'Edit settings',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 
