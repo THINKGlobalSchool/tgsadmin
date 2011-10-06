@@ -25,6 +25,27 @@ if ($check) {
 		var_dump($image);
 	}
 	
+} else {
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'album',
+		'limit' => 0,
+	);
+	
+	$albums = elgg_get_entities($options);
+	
+	foreach($albums as $album) {
+		$cover_guid = $album->cover;
+		
+		if ($album->cover_guid === 0) {
+			echo "GUID: {$album->guid} - COVER: {$cover_guid} - NAME: {$album->title}
+";
+		}
+		
+
+	}
 }
+
+
 
 echo "</pre>";
