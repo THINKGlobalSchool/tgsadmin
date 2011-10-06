@@ -35,9 +35,26 @@ if ($check) {
 	$albums = elgg_get_entities($options);
 	
 	foreach($albums as $album) {
-		$cover_guid = $album->cover;
+		$cover_guid = $album->getCoverImageGuid();
 		
-		if ($album->cover_guid === 0) {
+		if ($cover_guid === 0) {
+			$options = array(
+				'type' => 'object',
+				'subtype' => 'image',
+				'limit' => 0,
+				'container_guid' => $album->guid,
+			);
+			$photos = elgg_get_entities($options);
+
+			foreach($photos as $photo) {
+				echo "{$photo->guid}
+";
+				$album->prependImageList(array($photo->guid));
+			}
+
+			$cover_guid = $album->getCoverImageGuid();
+			
+	
 			echo "GUID: {$album->guid} - COVER: {$cover_guid} - NAME: {$album->title}
 ";
 		}
