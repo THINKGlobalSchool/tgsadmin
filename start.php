@@ -104,6 +104,7 @@ function tgsadmin_init() {
 function tgsadmin_externallinks_init() {	
 	if (elgg_get_plugin_setting('enable_externallinks', 'tgsadmin') == 'yes') {
 		$js = elgg_get_simplecache_url('js', 'tgsadmin/externallinks');
+		elgg_register_simplecache_view('js/tgsadmin/externallinks');	
 		elgg_register_js('elgg.externallinks', $js);
 		elgg_load_js('elgg.externallinks');
 	}
