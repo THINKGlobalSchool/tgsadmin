@@ -12,12 +12,14 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php")
 admin_gatekeeper();
 
 $go = get_input('go', FALSE);
+$guid = get_input('guid', NULL);
 
 echo "<pre>MIGRATE GROUP DISCUSSIONS TO GROUP FORUM<br /><br />";
 
 $options = array(
 	'type' => 'group',
 	'limit' => 0,
+	'guid' => $guid,
 );
 
 $groups = new ElggBatch('elgg_get_entities', $options);
