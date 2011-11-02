@@ -153,7 +153,7 @@ foreach ($groups as $group) {
 }
 
 // Fix existing tag dashboards
-if ($go) {
+if (get_input('updatetd', FALSE)) {
 	$subtypes = tagdashboards_get_enabled_subtypes();
 
 	// Disable documents and enable files in settings
