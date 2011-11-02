@@ -194,6 +194,7 @@ if (!$go) {
 	$url = elgg_get_site_url();
 	echo "<br /><form action='{$url}mod/tgsadmin/scripts/group_discussion_to_forum.php'>";
 	echo "<input type='submit' name='go' value='GO' />";
+	echo "<input type='hidden' name='guid' value='$guid' />";
 	echo "</form>";	
 }
 
