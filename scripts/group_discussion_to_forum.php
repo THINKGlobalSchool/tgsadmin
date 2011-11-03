@@ -60,13 +60,13 @@ foreach ($groups as $group) {
 		$forum->moderator_role = NULL;
 		$forum->access_id = ACCESS_LOGGED_IN; // Set logged in.. group owner can adjust later
 		$forum->save();
-		
-		// Disable group discussions
-		$group->forum_enable = 'no';
-		
-		// Make sure forums are enabled
-		$group->forums_enable = 'yes';
 	}
+	
+	// Disable group discussions
+	$group->forum_enable = 'no';
+	
+	// Make sure forums are enabled
+	$group->forums_enable = 'yes';
 
 	foreach ($topics as $topic) {
 		// Count replies
