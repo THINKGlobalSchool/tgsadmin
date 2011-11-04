@@ -114,6 +114,32 @@ foreach ($groups as $group) {
 			elgg_delete_river(array(
 				'object_guid' => $topic->guid,
 			));
+			
+			
+			// Create intitial reply from topic description
+			$forum_reply = new ElggObject();
+			$forum_reply->subtype = 'forum_reply';
+			$forum_reply->access_id = $forum_topic->access_id;
+			$forum_reply->topic_guid = $forum_topic->guid;
+			$forum_reply->container_guid = $forum_topic->container_guid;
+			$forum_reply->owner_guid = $topic->owner_guid;
+			$forum_reply->description = $topic->description;
+			$forum_reply->save();
+			$forum_reply->time_created = $forum_topic->time_created;
+			$forum_reply->save();
+
+			// Add reply to relationship
+			add_entity_relationship($forum_reply->guid, FORUM_REPLY_RELATIONSHIP, $forum_topic->guid);
+			
+			// Add reply river entry
+			add_to_river(
+				'river/object/forum_reply/create', 
+				'create', 
+				$forum_reply->owner_guid, 
+				$forum_reply->guid,
+				"",
+				$reply->time_created
+			);
 		}
 		
 		foreach ($replies as $reply) {			
