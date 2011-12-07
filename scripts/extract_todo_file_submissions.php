@@ -63,7 +63,7 @@ if (elgg_instanceof($user, 'user')) {
 					
 					if ($go) {
 						if (file_exists($filename)) {
-							$zip->addFile($filename, $entity->getFilename());
+							$zip->addFile($filename, $username . '/' . $entity->getFilename());
 							if (!$zip->status == ZIPARCHIVE::ER_OK) {
 								echo "ERROR ADDING FILE TO ZIP<br /><br />";
 							}
