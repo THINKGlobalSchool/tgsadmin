@@ -30,7 +30,11 @@ if (elgg_instanceof($user, 'user')) {
 	echo "SUBMISSION FILES: <br /><br />";
 	
 	if ($go) {
-		
+		$zip = new ZipArchive;
+
+		if ($zip->open($dataroot . $username . '.zip', ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE) !== TRUE) {
+			die('ERROR CREATING ZIP');
+		}	
 	}
 	
 	foreach ($submissions as $submission) {
@@ -59,7 +63,10 @@ if (elgg_instanceof($user, 'user')) {
 					
 					if ($go) {
 						if (file_exists($filename)) {
-							
+							$zip->addFile($filename, $entity->getFilename());
+							if (!$zip->status == ZIPARCHIVE::ER_OK) {
+								echo "ERROR ADDING FILE TO ZIP<br /><br />";
+							}
 						}
 					}
 				}
@@ -77,6 +84,8 @@ if (elgg_instanceof($user, 'user')) {
 				<input type='hidden' name='u' value='$username' />
 			</form>
 HTML;
+	} else {
+		$zip->close();
 	}
 	
 } else {
