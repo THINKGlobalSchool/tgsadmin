@@ -28,7 +28,7 @@ foreach ($users as $user) {
 		// Set group as page owner to handle ACL's properly
 		elgg_set_page_owner_guid($group->guid);
 		elgg_set_ignore_access(TRUE);
-		set_page_owner($group->guid);
+		elgg_set_page_owner_guid($group->guid);
 		
 		$user_entity = get_entity($user);
 		
