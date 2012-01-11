@@ -6,7 +6,7 @@
 	
 	$url = $CONFIG->url . "mod/tgstweaks/clear_google_connect.php";
 
-	$user_input = elgg_view('input/text', array('internalname' => 'user'));
+	$user_input = elgg_view('input/text', array('name' => 'user'));
 	
 	if (get_input('submit') && $user = get_user(get_input('user'))) {
 		echo <<<EOT

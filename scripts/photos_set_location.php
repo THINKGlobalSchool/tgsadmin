@@ -21,7 +21,7 @@
                 // Find all entities without geolocation data
                 foreach ($entities as $entity) {
                         $found = false;
-                        $metadata =  get_metadata_for_entity($entity->guid);
+                        $metadata =  elgg_get_metadata(array('guid' => $entity->guid, 'limit' => 0));
                         foreach ($metadata as $meta_object) {
                                 if ($meta_object->name == 'geo:lat') {
                                         $found = true;

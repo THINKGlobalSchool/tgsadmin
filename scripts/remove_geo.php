@@ -19,8 +19,8 @@
                 echo "Entities: <br /><br />";
                 foreach ($entities as $entity) {
                         if ($entity->type != 'user' && $entity->getSubtype() != 'blog') {
-                                remove_metadata($entity->getGUID(), 'geo:lat');
-                                remove_metadata($entity->getGUID(), 'geo:long');
+                                elgg_delete_metadata(array('guid' => $entity->getGUID(), 'metadata_name' => 'geo:lat'));
+                                elgg_delete_metadata(array('guid' => $entity->getGUID(), 'metadata_name' => 'geo:long'));
                                 echo "Entity: " . $entity->getGUID() . "<br />";
                                 echo "Entity Lat: " . $entity->get('geo:lat') . "<br />";
                                 echo "Entity Long: " . $entity->get('geo:long') . "<br /><br />";

@@ -26,9 +26,9 @@ $entities = get_assign_groups();
 $title = elgg_view_title(elgg_echo('tgsadmin:label:unassign'));
 
 $groups_label = elgg_echo('tgsadmin:label:selectgroup');
-$groups_input = elgg_view('input/pulldown', array(
-												'internalid' => 'group-picker',
-												'internalname' => 'entity_guid',
+$groups_input = elgg_view('input/dropdown', array(
+												'id' => 'group-picker',
+												'name' => 'entity_guid',
 												'options_values' => $entities,
 												'value' => get_input('entity_guid', 0),
 											));

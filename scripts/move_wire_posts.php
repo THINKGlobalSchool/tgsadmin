@@ -6,9 +6,9 @@
 	
 	admin_gatekeeper();
 
-	$access_from_input = elgg_view('input/access', array('internalname' => 'access_from')); 
+	$access_from_input = elgg_view('input/access', array('name' => 'access_from')); 
 	
-	$access_to_input = elgg_view('input/access', array('internalname' => 'access_to')); 
+	$access_to_input = elgg_view('input/access', array('name' => 'access_to')); 
 	
 	$url = $CONFIG->url . "mod/tgstweaks/move_wire_posts.php";
 

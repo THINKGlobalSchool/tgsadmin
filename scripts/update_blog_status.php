@@ -39,5 +39,5 @@ $url = $CONFIG->url . "mod/tgstweaks/update_blog_status.php";
 $area .= "<p>Update all blogs to status: <a href='{$url}?change_status=draft'>Draft</a> <a href='{$url}?change_status=published'>Published</a></p>";
 
 $body = elgg_view_layout("one_column", $area);
-page_draw("Update Blog Status",$body);
+elgg_view_page("Update Blog Status",$body,'default');
 ?>

@@ -11,7 +11,7 @@
 
 	echo "User validated: " . $user->validated;
 	
-	set_user_validation_status($user->getGUID(), TRUE, 'admin_created');
+	elgg_set_user_validation_status($user->getGUID(), TRUE, 'admin_created');
 	$user->save();
 	
 ?>
