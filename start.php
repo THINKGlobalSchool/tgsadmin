@@ -79,7 +79,7 @@ function tgsadmin_init() {
 	elgg_extend_view('css/elgg', 'tweaks/css');
 	
 	// Extend river item view
-	elgg_extend_view('river/item', 'tweaks/access_display', 501);
+	elgg_extend_view('river/elements/layout', 'tweaks/access_display', 501);
 	
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
