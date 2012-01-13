@@ -34,10 +34,10 @@ $groups_input = elgg_view('input/dropdown', array(
 											));
 		
 // Form content
-$form_body = <<<EOT
-	$title<br />
+$form_body = <<<HTML
+	<br />$title<br />
 	<label>$groups_label</label><br />
 	$groups_input<br />
-EOT;
+HTML;
 
 echo $script . $form_body;

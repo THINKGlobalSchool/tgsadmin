@@ -11,7 +11,7 @@
  */
 
 // get input
-$users	= get_input('users');
+$users	= get_input('members');
 $group_guid = get_input('groups');
 
 // check values
@@ -40,5 +40,5 @@ foreach ($users as $user) {
 	}
 }
 	
-system_message(elgg_echo("tgsadmin:confirm:assigned"));
+system_message(elgg_echo("tgsadmin:confirm:assigned", array($group->name)));
 forward($_SERVER['HTTP_REFERER']);

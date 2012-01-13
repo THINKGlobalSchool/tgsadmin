@@ -19,7 +19,6 @@ $form_vars = array(
 );
 echo elgg_view_form('tgsadmin/groupselect', $form_vars, array());
 
-
 if ($guid = get_input('entity_guid')) {
 	echo elgg_view('assign/members', array('guid' => $guid));
 }

@@ -27,13 +27,13 @@ $groups_input = elgg_view('input/dropdown', array(
 $submit_button = elgg_view('input/submit', array('value' => elgg_echo('Submit')));
 		
 // Form content
-$form_body = <<<EOT
+$form_body = <<<HTML
 	$title<br />
 	<label>$users_label</label><br /> 
 	$users_input<br /> 
 	<label>$groups_label</label><br />
-	$groups_input<br />
+	$groups_input<br /><br />
 	$submit_button
-EOT;
+HTML;
 
 echo $form_body;
