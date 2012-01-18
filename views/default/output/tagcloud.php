@@ -49,7 +49,7 @@ if (!empty($vars['tagcloud']) && is_array($vars['tagcloud'])) {
 		if ($size < 100) {
 			$size = 90;
 		}
-		$url = elgg_get_site_url()."search?q=". urlencode($tag->tag) . "&search_type=tags$type$subtype";
+		$url = elgg_get_site_url() . "tagdashboards/add/#". urlencode($tag->tag);
 		$url = elgg_format_url($url);
 		$cloud .= "<a href=\"$url\" style=\"font-size: $size%\" title=\"".addslashes($tag->tag)." ($tag->total)\">" . htmlspecialchars($tag->tag, ENT_QUOTES, 'UTF-8') . "</a>";
 	}

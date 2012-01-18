@@ -22,7 +22,9 @@
  * 
  * The following views have been added/overidden
  * - river/object/file/create (to show old files entries)
- * - output/tagcloud
+ * - output/tagcloud (tags point to a tagdashboard/better formatting)
+ * - output/tags     (tags point to a tagdashboard)
+ * - output/tag      (tags point to a tagdashboard)
  */
 
 // Register init event 
