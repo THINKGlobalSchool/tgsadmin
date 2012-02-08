@@ -22,9 +22,11 @@
  * 
  * The following views have been added/overidden
  * - river/object/file/create (to show old files entries)
- * - output/tagcloud (tags point to a tagdashboard/better formatting)
- * - output/tags     (tags point to a tagdashboard)
- * - output/tag      (tags point to a tagdashboard)
+ * - output/tagcloud                (tags point to a tagdashboard/better formatting)
+ * - output/tags                    (tags point to a tagdashboard)
+ * - output/tag                     (tags point to a tagdashboard)
+ * - core/settings/account/email    (email is read only for non-admins)
+ * - core/settings/account/password (added a link to reset current password)
  */
 
 // Register init event 
@@ -66,19 +68,24 @@ function tgsadmin_init() {
 		}
 	}
 	
-	// Extend user hover menu to add admin features
-	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'tgsadmin_user_hover_menu_setup');
-	
-	// Unresister forgotpassword page handler
+	// Unregister forgotpassword page handler
 	elgg_unregister_page_handler('forgotpassword');
 	
 	// Register new page hanler 
 	elgg_register_page_handler('forgotpassword', 'tgsadmin_forgotpassword_page_handler');
 	
+	// Unregister resetpassword page handler
+	elgg_unregister_page_handler('resetpassword');
+
+	// Register new page handler
+	elgg_register_page_handler('resetpassword', 'tgsadmin_resetpassword_page_handler');
 	
 	/* TGS TWEAKS */
 	// Include the access level in the river item view
 	elgg_extend_view('css/elgg', 'tweaks/css');
+	
+	// Override CSS
+	elgg_extend_view('css/elgg', 'css/tgsadmin/overrides');
 	
 	// Extend river item view
 	elgg_extend_view('river/elements/layout', 'tweaks/access_display', 501);
@@ -148,24 +155,6 @@ function tgsadmin_setup_menu() {
 }
 
 /**
- * Extend the user hover menu
- */
-function tgsadmin_user_hover_menu_setup($hook, $type, $return, $params) {
-	
-	$user = $params['entity'];
-	
-	$options = array(
-		'name' => 'admin_edit_user',
-		'text' => elgg_echo('tgsadmin:label:editusersettings'),
-		'href' => 'settings/user/' . $params['entity']->username,
-		'section' => 'admin',
-	);
-	$return[] = ElggMenuItem::factory($options);
-	
-	return $return;
-}
-
-/**
  * Page handler for forgotten passwords
  *
  * @param array  $page_elements Page elements
@@ -187,4 +176,50 @@ function tgsadmin_forgotpassword_page_handler($page_elements, $handler) {
 
 	$body = elgg_view_layout("one_column", array('content' => $content));
 	echo elgg_view_page($title, $body);
+}
+
+/**
+ * Page handler for resetting passwords
+ *
+ * @param array  $page_elements Page elements
+ * @param string $handler The handler string
+ *
+ * @return void
+ */
+function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
+	if (elgg_is_logged_in()) {
+		// Allow logged in users to reset their password
+		$user = elgg_get_logged_in_user_entity();
+		$user_guid = $user->guid;
+		
+		// Need to generate a code (skipping email validation)
+		$code = generate_random_cleartext_password();
+		$user->setPrivateSetting('passwd_conf_code', $code);
+	
+	} else {
+		$user_guid = get_input('u');
+		$code = get_input('c');
+
+		$user = get_entity($user_guid);
+	}
+
+	// don't check code here to avoid automated attacks
+	if (!$user instanceof ElggUser) {
+		register_error(elgg_echo('user:passwordreset:unknown_user'));
+		forward();
+	}
+
+	$params = array(
+		'guid' => $user_guid,
+		'code' => $code,
+	);
+	$form = elgg_view_form('user/passwordreset', array('class' => 'elgg-form-account'), $params);
+
+	$title = elgg_echo('resetpassword');
+	$content = elgg_view_title(elgg_echo('resetpassword')) . $form;
+
+	$body = elgg_view_layout('one_column', array('content' => $content));
+
+	echo elgg_view_page($title, $body);
+
 }

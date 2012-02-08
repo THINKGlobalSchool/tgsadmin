@@ -34,6 +34,7 @@ $english = array(
 	'tgsadmin:label:editusersettings' => 'Edit settings',
 	'tgsadmin:label:usernameemail' => 'Username -or- Email',
 	'tgsadmin:password:text' => 'To request a new password, enter your username or email below and click the Request button.',
+	'tgsadmin:label:forgotcurrent' => 'I forget my current password',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 

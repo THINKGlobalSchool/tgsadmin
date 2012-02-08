@@ -5,6 +5,10 @@
  * @package Elgg
  * @subpackage Core
  */
+
+if (elgg_is_logged_in()) {
+	$user = elgg_get_logged_in_user_entity();
+}
 ?>
 
 <div class="mtm">
@@ -12,7 +16,7 @@
 </div>
 <div>
 	<label><?php echo elgg_echo('tgsadmin:label:usernameemail'); ?></label><br />
-	<?php echo elgg_view('input/text', array('name' => 'username')); ?>
+	<?php echo elgg_view('input/text', array('name' => 'username', 'value' => $user->username)); ?>
 </div>
 <?php echo elgg_view('input/captcha'); ?>
 <div class="elgg-foot">
