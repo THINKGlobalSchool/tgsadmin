@@ -46,3 +46,12 @@ function get_assign_groups() {
 	
 	return $dropdown;
 }
+
+/**
+ * Ajax die, helper function that registers and error and calls forward. 
+ * This is only really useful for testing ajax actions
+ */
+function ajaxdie($msg) {
+	register_error("AJAX DIE: $msg");
+	forward(REFERER);
+}

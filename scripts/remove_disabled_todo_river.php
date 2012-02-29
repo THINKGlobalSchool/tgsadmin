@@ -1,5 +1,5 @@
 <?php
-/** Validate a user account **/
+/** Remove disabled todo river entries **/
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php");
 global $CONFIG;
 admin_gatekeeper();
@@ -28,8 +28,5 @@ foreach ($todos as $todo) {
 	}
 }
 
-if (get_input('go')) {
-	
-} 
 access_show_hidden_entities(FALSE);
 echo "</pre>";
