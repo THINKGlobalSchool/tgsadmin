@@ -5,7 +5,7 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2009-2010
+ * @copyright Think Global School 2010 - 2012
  * @link http://www.thinkglobalschool.com
  * 
  * Provides the following features/functionality
@@ -13,6 +13,7 @@
  * - Maintenance Mode: allows admins to take an elgg site down and display a maintenance message to regular users
  * - Assign: Allows admins to easily assign users to groups and channels
  * - External Links: Externallinks will open in a new tab/window
+ * - Manage User Notifications
  * 
  * Also includes the following tweaks from the tgstweaks plugin
  * - Extend river wrapper to show which access level/group each entry belongs to
@@ -43,9 +44,17 @@ function tgsadmin_init() {
 	elgg_register_library('elgg:tgsadmin', elgg_get_plugins_path() . 'tgsadmin/lib/tgsadmin.php');
 	elgg_load_library('elgg:tgsadmin');
 	
-	
 	// Register handler for pagesetup event to set up admin menu
 	elgg_register_event_handler('pagesetup', 'system', 'tgsadmin_setup_menu');
+	
+	
+	/* ADMIN NOTIFICATIONS */
+	// Register admin notifications JS
+	$n_js = elgg_get_simplecache_url('js', 'tgsadmin/notifications');
+	elgg_register_simplecache_view('js/tgsadmin/notifications');	
+	elgg_register_js('elgg.adminnotifications', $n_js);
+	
+	elgg_register_page_handler('tgsadmin_notifications', 'tgsadmin_notifications_page_handler');
 	
 	/* AUTOFRIEND */
 	// Register an event handler to catch the creation of new users
@@ -102,6 +111,7 @@ function tgsadmin_init() {
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
+	elgg_register_action('tgsadmin/setnotification', "$action_base/setnotification.php", 'admin');
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
 }
@@ -148,7 +158,12 @@ function autofriend_event($event, $object_type, $object) {
  */
 function tgsadmin_setup_menu() {
 	if (elgg_in_context('admin')) {
+		// Assign users admin option
 		elgg_register_admin_menu_item('administer', 'assign', 'users');
+	
+		// Manage user notifications
+		elgg_register_admin_menu_item('administer', 'notifications', 'users');
+		
 		// Not using this yet
 		//elgg_register_admin_menu_item('administer', 'settings', 'tgsadmin');
 	}
@@ -176,6 +191,31 @@ function tgsadmin_forgotpassword_page_handler($page_elements, $handler) {
 
 	$body = elgg_view_layout("one_column", array('content' => $content));
 	echo elgg_view_page($title, $body);
+}
+
+/**
+ * Page handler for forgotten passwords
+ *
+ * @param array  $page_elements Page elements
+ * @param string $handler The handler string
+ *
+ * @return void
+ */
+function tgsadmin_notifications_page_handler($page) {
+	if (!elgg_is_admin_logged_in()) {
+		forward();
+	}
+
+	switch($page[0]) {
+		case 'enableemail':
+			tgsadmin_enable_all_notifications_by_type('email');
+			break;
+		case 'enablesite':
+			tgsadmin_enable_all_notifications_by_type('site');
+			break;
+	}
+	
+	return TRUE;
 }
 
 /**

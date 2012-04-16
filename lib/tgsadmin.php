@@ -5,7 +5,7 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2009-2010
+ * @copyright Think Global School 2010 - 2012
  * @link http://www.thinkglobalschool.com
  *
  */
@@ -54,4 +54,41 @@ function get_assign_groups() {
 function ajaxdie($msg) {
 	register_error("AJAX DIE: $msg");
 	forward(REFERER);
+}
+
+/** Notifications scripts **/
+
+/**
+ * Enable all notifications with given type
+ *
+ */
+function tgsadmin_enable_all_notifications_by_type($notification_type) {
+	if (!elgg_is_admin_logged_in()) {
+		return FALSE; // Get out if not admin
+	}
+
+	$options = array(
+		'type' => 'user',
+		'limit' => 0,
+	);
+
+	$users = new ElggBatch('elgg_get_entities', $options);
+
+	echo "<pre>";
+
+	echo "ENABLE USER '{$notification_type}' NOTIFICATIONS <br /><br />";
+ "</form>";	
+
+	foreach ($users as $user) {
+		echo "\r\n{$user->name}\r\n";
+		set_user_notification_setting($user->guid, $notification_type, TRUE);
+		$user_notifications = get_user_notification_settings($user->guid);
+		
+		foreach ($user_notifications as $type => $setting) {
+			echo "	{$type}: {$setting}\r\n";
+		}
+	}
+	echo "</pre>";
+	
+	return TRUE;
 }

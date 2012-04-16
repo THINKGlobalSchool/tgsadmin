@@ -25,9 +25,11 @@ if (!$go) {
 
 foreach ($users as $user) {
 	if ($go) {
-		$email_set .= " -> YES";
-		set_user_notification_setting($user->guid, 'email', TRUE);
-		echo "$user->username - DONE!<br />";
+		echo $user->name . "\r\n";
+		//var_dump(get_user_notification_settings($user->guid));
+		//$email_set .= " -> YES";
+		//set_user_notification_setting($user->guid, 'email', TRUE);
+		//echo "$user->username - DONE!<br />";
 	}
 }
 echo "</pre>";

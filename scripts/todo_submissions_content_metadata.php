@@ -16,12 +16,12 @@ $options = array(
 $submissions = new ElggBatch('elgg_get_entities', $options);
 
 foreach ($submissions as $submission) {
-	if (!$submission->content || $submission->content == 'N;' || $submission->content == 's:0:"";') {
+	//if (!$submission->content || $submission->content == 'N;' || $submission->content == 's:0:"";') {
 		echo "{$submission->guid} \r\n- {$submission->content}\r\n\r\n";
 		if (get_input('go')) {
-			$submission->content = 0;
+	//		$submission->content = 0;
 		}
-	}
+//	}
 }
 
 echo "</pre>";
