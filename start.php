@@ -41,6 +41,8 @@ elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
  */
 function tgsadmin_init() {
 	
+	tgsadmin_pqp_init();
+	
 	elgg_register_library('elgg:tgsadmin', elgg_get_plugins_path() . 'tgsadmin/lib/tgsadmin.php');
 	elgg_load_library('elgg:tgsadmin');
 	
@@ -262,4 +264,20 @@ function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
 
 	echo elgg_view_page($title, $body);
 
+}
+
+/**
+ * Init PQP Profiler
+ */
+function tgsadmin_pqp_init() {
+	/* PQP INIT */
+	if (get_input('pqp_profiler') == 'pqp_profile') {
+		global $CONFIG;
+		include_once elgg_get_plugins_path() . "tgsadmin/vendors/pqp/classes/PhpQuickProfiler.php";
+		$CONFIG->pqp_profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime(), elgg_get_plugins_path() . "tgsadmin/vendors/pqp/");
+		$CONFIG->pqp_db = new stdClass();
+		$CONFIG->pqp_db->queries = array();
+		$CONFIG->pqp_db->queryCount = 0;
+	}
+	elgg_extend_view('page/elements/foot', 'tgsadmin/pqp');
 }
