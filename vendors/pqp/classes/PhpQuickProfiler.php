@@ -101,7 +101,7 @@ class PhpQuickProfiler {
 		if($this->db != '') {
 			$queryTotals['count'] += $this->db->queryCount;
 			foreach($this->db->queries as $key => $query) {
-			//	$query = $this->attemptToExplainQuery($query);
+				$query = $this->attemptToExplainQuery($query);
 				$queryTotals['time'] += $query['time'];
 				$query['time'] = $this->getReadableTime($query['time']);
 				$queries[] = $query;
@@ -117,6 +117,7 @@ class PhpQuickProfiler {
 	----------------------------------------------------------*/
 	
 	function attemptToExplainQuery($query) {
+		/*
 		try {
 			$sql = 'EXPLAIN '.$query['sql'];
 			$rs = $this->db->query($sql);
@@ -126,6 +127,8 @@ class PhpQuickProfiler {
 			$row = mysql_fetch_array($rs, MYSQL_ASSOC);
 			$query['explain'] = $row;
 		}
+		*/
+		
 		return $query;
 	}
 	

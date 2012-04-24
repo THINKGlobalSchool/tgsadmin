@@ -33,6 +33,7 @@ if (get_input('orient')) {
 		
 			$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),60,60, true);
 			if ($thumbnail) {
+				echo "creating thumb<br>";
 				$thumb = new ElggFile();
 				$thumb->setMimeType($file->getMimeType());
 
@@ -47,6 +48,7 @@ if (get_input('orient')) {
 
 			$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),153,153, true);
 			if ($thumbsmall) {
+				echo "creating smallthumb<br>";
 				$thumb->setFilename($smallthumbname);
 				$thumb->open("write");
 				$thumb->write($thumbsmall);
@@ -57,6 +59,7 @@ if (get_input('orient')) {
 
 			$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(),600,600, false);
 			if ($thumblarge) {
+				echo "creating largethumb<br>";
 				$thumb->setFilename($largethumbname);
 				$thumb->open("write");
 				$thumb->write($thumblarge);
@@ -65,7 +68,7 @@ if (get_input('orient')) {
 				unset($thumblarge);
 			}
 			
-			echo "<br>converted!";
+			echo "<br>done!";
 		}
 	}
 } else {

@@ -37,6 +37,7 @@ elgg.externallinks.isValidExternalLink = function(a) {
 		&& !href.startsWith(url)
 		&& !a.hasClass('elgg-toggler') 	// Check for elgg-toggler class
 		&& !a.hasClass('elgg-lightbox')	// Check for elgg-lightbox class
+		&& !a.hasClass('simplekaltura-lightbox')	// Check for simplekaltura-lightbox class
 		&& a.attr('rel') != 'popup')  	// Check for rel=popup
 	{					
 		return true; 
