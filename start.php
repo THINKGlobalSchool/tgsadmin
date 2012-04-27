@@ -109,6 +109,9 @@ function tgsadmin_init() {
 	
 	/* Assign/Unassign */
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
+	
+	/* Extra HTMLawed Config */
+	elgg_register_plugin_hook_handler('config', 'htmlawed', 'tgsadmin_htmlawed_config_handler');
 
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
@@ -280,4 +283,18 @@ function tgsadmin_pqp_init() {
 		$CONFIG->pqp_db->queryCount = 0;
 	}
 	elgg_extend_view('page/elements/foot', 'tgsadmin/pqp');
+}
+
+/**
+ * Add extra configuration for HTMLawed
+ *
+ * @param string $hook   Hook name
+ * @param string $type   The type of hook
+ * @param mixed  $config The HTMLawed config
+ * @param array  $params Not used
+ * @return mixed
+ */
+function tgsadmin_htmlawed_config_handler($hook, $type, $config, $params) {
+	$config['cdata'] = 1;
+	return $config;
 }
