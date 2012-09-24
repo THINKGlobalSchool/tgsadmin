@@ -16,7 +16,7 @@ elgg.provide('elgg.externallinks');
 // Check agains pre-defined exceptions (facebook for now)
 elgg.externallinks.checkExceptions = function(str) {
 	var exceptions = new Array(
-		'.*?(www\\.facebook\\.com)(\\/)(login\\.php)' // Facebook login exception
+		'.*?(www\\.facebook\\.com)(\\/)(dialog)' // Facebook login exception
 	);
 	
 	for (exception in exceptions) {
