@@ -1,5 +1,4 @@
 <?php
-
 	/** Validate a user account **/
 	require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 	global $CONFIG;
@@ -13,5 +12,4 @@
 	
 	elgg_set_user_validation_status($user->getGUID(), TRUE, 'admin_created');
 	$user->save();
-	
 ?>

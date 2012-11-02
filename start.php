@@ -79,6 +79,12 @@ function tgsadmin_init() {
 		}
 	}
 	
+	/** OTHER UTILITES **/
+	$tu_js = elgg_get_simplecache_url('js', 'tgsadmin/utilities');
+	elgg_register_simplecache_view('js/tgsadmin/utilities');	
+	elgg_register_js('elgg.tgsadmin_utilities', $tu_js);
+
+	
 	// Unregister forgotpassword page handler
 	elgg_unregister_page_handler('forgotpassword');
 	
@@ -119,6 +125,7 @@ function tgsadmin_init() {
 	elgg_register_action('tgsadmin/setnotification', "$action_base/setnotification.php", 'admin');
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
+	elgg_register_action('tgsadmin/move_entity', "$action_base/move_entity.php", 'admin');
 }
 
 /**
@@ -163,11 +170,16 @@ function autofriend_event($event, $object_type, $object) {
  */
 function tgsadmin_setup_menu() {
 	if (elgg_in_context('admin')) {
+		elgg_load_js('elgg.tgsadmin_utilities');
+		
 		// Assign users admin option
 		elgg_register_admin_menu_item('administer', 'assign', 'users');
 	
 		// Manage user notifications
 		elgg_register_admin_menu_item('administer', 'notifications', 'users');
+
+		// Entity move utility
+		elgg_register_admin_menu_item('administer', 'move_entity', 'administer_utilities');
 		
 		// Not using this yet
 		//elgg_register_admin_menu_item('administer', 'settings', 'tgsadmin');
