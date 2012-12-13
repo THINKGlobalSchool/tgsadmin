@@ -119,6 +119,9 @@ function tgsadmin_init() {
 	/* Extra HTMLawed Config */
 	elgg_register_plugin_hook_handler('config', 'htmlawed', 'tgsadmin_htmlawed_config_handler');
 
+	/* Customize outgoing emails */
+	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
+
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
@@ -309,4 +312,43 @@ function tgsadmin_pqp_init() {
 function tgsadmin_htmlawed_config_handler($hook, $type, $config, $params) {
 	$config['cdata'] = 1;
 	return $config;
+}
+
+/**
+ * Customize outgoing emails
+ *
+ * @param string $hook   Hook name
+ * @param string $type   The type of hook
+ * @param mixed  $value  Return value
+ * @param array  $params Mail params
+ * @return mixed
+ */
+function tgsadmin_email_handler($hook, $type, $value, $params) {
+	if (!elgg_in_context('elgg_send_email_passthrough')) {
+		// Get site email address
+		$site = get_entity(elgg_get_config('site_guid'));
+		$site_email = $site->email;
+
+		// Get no-reply email address (may have already fallen back to this)
+		$noreply_email = 'noreply@' . get_site_domain($site->guid);
+
+		// If we're sending an email from the site or noreply
+		if ($params['from'] == $site_email || $params['from'] == $noreply_email) {
+			// Force from address to noreply@
+			$params['from'] = $noreply_email;
+
+			// Append no reply message
+			$params['body'] .= elgg_echo('tgsadmin:message:noreply');
+
+			// Push passthrough context so we don't interrupt our custom email
+			elgg_push_context('elgg_send_email_passthrough');
+
+			// Send updated email
+			elgg_send_email($params['from'], $params['to'], $params['subject'], $params['body'], $params['params']);
+
+			return TRUE;
+		}
+	}
+	// Carry on..
+	return $value;
 }

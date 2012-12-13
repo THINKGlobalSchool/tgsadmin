@@ -58,6 +58,72 @@ $english = array(
 	'tgsadmin:error:nodata' => 'No Data',
 	'tgsadmin:error:usernotification' => 'There was an error saving the user notification setting',
 	'tgsadmin:success:usernotification' => 'Successfully saved user notification setting ',
+
+	// No reply message
+	'tgsadmin:message:noreply' => "\n\n*** This mailbox is unattended. Please do not reply to this message. ***",
+
+	// Core email notification overrides
+	'friend:newfriend:body' => "%s has made you a friend!
+
+To view their profile, click here:
+
+%s",
+
+	'generic_comment:email:body' => "You have a new comment on your item \"%s\" from %s. It reads:
+
+
+%s
+
+
+To reply or view the original item, click here:
+
+%s
+
+To view %s's profile, click here:
+
+%s",
+
+	'messageboard:email:body' => "You have a new message board comment from %s. It reads:
+
+
+%s
+
+
+To view your message board comments, click here:
+
+%s
+
+To view %s's profile, click here:
+
+%s",
+
+	'messages:email:body' => "You have a new message from %s. It reads:
+
+%s
+
+
+To view your messages, click here:
+
+%s
+
+To send %s a message, click here:
+
+%s",
+
+	'profile:comment:body' => "You have a new message on your comment wall from %s. It reads:
+
+
+%s
+
+
+To view your message board comments, click here:
+
+%s
+
+To view %s's profile, click here:
+
+%s",
+
 );
 
 add_translation('en',$english);
