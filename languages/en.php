@@ -44,6 +44,8 @@ $english = array(
 	'tgsadmin:label:move' => 'Move Entity',
 	'tgsadmin:label:entityguid' => 'Entity GUID',
 	'tgsadmin:label:groupguid' => 'Group GUID',
+	'tgsadmin:label:emailsettings' => 'Email Settings',
+	'tgsadmin:label:noreplyemail' => 'No reply email',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 

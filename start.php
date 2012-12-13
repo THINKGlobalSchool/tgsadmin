@@ -335,7 +335,11 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
 		// If we're sending an email from the site or noreply
 		if ($params['from'] == $site_email || $params['from'] == $noreply_email) {
 			// Force from address to noreply@
-			$params['from'] = $noreply_email;
+			if ($noreply = elgg_get_plugin_setting('noreplyemail', 'tgsadmin')) {
+				$params['from'] = $noreply;
+			} else {
+				$params['from'] = $noreply_email;
+			}
 
 			// Append no reply message
 			$params['body'] .= elgg_echo('tgsadmin:message:noreply');
