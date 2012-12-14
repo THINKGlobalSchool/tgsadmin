@@ -82,6 +82,9 @@ if (get_input('entities')) {
 	Display Name | Username | Date/Time Created | Content Type | Group | Title | Access Level | Tags | Comments | URL
 	*/
 
+	$offset = 0;
+	$limit = 500;
+
 	// Entity options
 	$options = array(
 		'type' => 'object',
@@ -101,12 +104,30 @@ if (get_input('entities')) {
 			"JOIN {$dbprefix}users_entity ue on e.owner_guid = ue.guid",
 			"JOIN {$dbprefix}objects_entity oe on e.guid = oe.guid",
 			"LEFT JOIN {$dbprefix}groups_entity ge on e.container_guid = ge.guid", // Left join includes null if no group
-			"LEFT JOIn {$dbprefix}access_collections ac on e.access_id = ac.id",
+			"LEFT JOIN {$dbprefix}access_collections ac on e.access_id = ac.id",
 		),
-		'limit' => 0, 
+		'limit' => 0,
+		'offset' => $offset,
+		'count' => true, 
 	);
 
-	$result = elgg_get_entities_from_metadata($options);
+	// Get a count
+	$count = elgg_get_entities_from_metadata($options);
+
+	unset($options['count']);
+
+	$options['limit'] = $limit;
+
+	$chunks = ceil($count / $limit);
+
+	$result = array();
+
+	// Chunk the output
+	for ($i = 0; $i < $chunks; $i++) {
+		$options['offset'] = $offset;
+		$result = array_merge($result, elgg_get_entities_from_metadata($options));
+		$offset += $limit;
+	}
 
 	header("Content-type: text/csv");
 	header("Content-Disposition: attachment; filename=entities_dump.csv");
