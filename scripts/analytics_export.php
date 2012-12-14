@@ -48,7 +48,7 @@ function entity_analytics_callback($row) {
 			$row->url,
 		);
 		
-		$string = implode(',', $values);
+		$string = implode("\t", $values);
 
 		return $string;
 }
@@ -125,7 +125,7 @@ if (get_input('entities')) {
 	header("Pragma: no-cache");
 	header("Expires: 0");
 
-	echo "Display Name,Username,Date/Time Created,Content Type,Group,Title,Access Level,Tags,Comments,URL\r\n";
+	echo "Display Name\tUsername\tDate/Time Created\tContent Type\tGroup\tTitle\tAccess Level\tTags\tComments\tURL\r\n";
 
 	// Chunk the output
 	for ($i = 0; $i < $chunks; $i++) {
