@@ -120,15 +120,6 @@ if (get_input('entities')) {
 
 	$chunks = ceil($count / $limit);
 
-	$result = array();
-
-	// Chunk the output
-	for ($i = 0; $i < $chunks; $i++) {
-		$options['offset'] = $offset;
-		$result = array_merge($result, elgg_get_entities_from_metadata($options));
-		$offset += $limit;
-	}
-
 	header("Content-type: text/csv");
 	header("Content-Disposition: attachment; filename=entities_dump.csv");
 	header("Pragma: no-cache");
@@ -136,9 +127,16 @@ if (get_input('entities')) {
 
 	echo "Display Name,Username,Date/Time Created,Content Type,Group,Title,Access Level,Tags,Comments,URL\r\n";
 
-	foreach ($result as $row) {
-		echo $row . "\r\n";
+	// Chunk the output
+	for ($i = 0; $i < $chunks; $i++) {
+		$options['offset'] = $offset;
+		$result = new ElggBatch('elgg_get_entities_from_metadata', $options);
+		foreach ($result as $row) {
+			echo $row . "\r\n";
+		}
+		$offset += $limit;
 	}
+
 } else if (get_input('comments')) { // Dump comments
 	/* Generic Comments
 	Display Name | Username | Date/Time Created | Content Type | Commented On | URL
