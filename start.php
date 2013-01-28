@@ -122,6 +122,9 @@ function tgsadmin_init() {
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
 
+	/* Ready system handling (for profiling) */
+	elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
+
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
@@ -355,4 +358,18 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
 	}
 	// Carry on..
 	return $value;
+}
+
+/**
+ * System ready event handler
+ */
+function tgsadmin_system_ready_handler($event, $object_type, $object) {
+	if (elgg_is_admin_logged_in()) {
+		elgg_dump(tgsadmin_get_execution_time());
+	}
+}
+
+function tgsadmin_get_execution_time() {
+	global $START_MICROTIME;
+	return round((microtime(true) - $START_MICROTIME), 4);
 }
