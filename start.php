@@ -110,8 +110,8 @@ function tgsadmin_init() {
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
 	
-	// Extend Sidebar for tag cloud
-	elgg_extend_view('page/elements/sidebar', 'tweaks/tagcloud', 502);
+	// Extend Sidebar for tag cloud (Disabled for performance reasons)
+	//elgg_extend_view('page/elements/sidebar', 'tweaks/tagcloud', 502);
 	
 	/* Assign/Unassign */
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
