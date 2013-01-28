@@ -17,3 +17,10 @@
 	position: relative;
 	top: -6px;
 }
+
+.tgsadmin-stats {
+	width: 100%;
+	background: #000000;
+	color: #EEEEEE;
+	padding: 10px;	
+}

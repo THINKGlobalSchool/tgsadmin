@@ -122,12 +122,18 @@ function tgsadmin_init() {
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
 
+	/* Admin stats */
 	if (elgg_get_plugin_setting('enable_execution_logging', 'tgsadmin') == 'yes') {
+		// Extend topbar
+		elgg_extend_view('page/elements/foot', 'tgsadmin/admin_stats', 1);
+
+		elgg_extend_view('page/elements/topbar', 'tgsadmin/topbar_ready', 99999);
+
 		/* Ready system handling (for profiling system boot time) */
-		elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
+		//elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
 
 		/* Register a shutdown function to log execution time */
-		register_shutdown_function('tgsadmin_shutdown');
+		//register_shutdown_function('tgsadmin_shutdown');
 	}
 
 	/* ACTIONS */	
@@ -365,20 +371,14 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
 	return $value;
 }
 
-/**
- * System ready event handler
- */
-function tgsadmin_system_ready_handler($event, $object_type, $object) {
-	if (elgg_is_admin_logged_in()) {
-		elgg_dump("System Ready Time: " . tgsadmin_get_execution_time() . " seconds");
-	}
-}
 
-function tgsadmin_shutdown() {
-	if (elgg_is_admin_logged_in()) {
-		echo ("Script Execution: " . tgsadmin_get_execution_time() . " seconds");
-	}
-}
+// function tgsadmin_shutdown() {
+// 	if (elgg_is_admin_logged_in()) {
+// 		// $_SESSION['_script_execution_time'] = tgsadmin_get_execution_time();
+// 		//echo($_SESSION['_script_execution_time']);
+// 		//echo (tgsadmin_get_execution_time());
+// 	}
+// }
 
 function tgsadmin_get_execution_time() {
 	global $START_MICROTIME;
