@@ -122,11 +122,13 @@ function tgsadmin_init() {
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
 
-	/* Ready system handling (for profiling system boot time) */
-	elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
+	if (elgg_get_plugin_setting('enable_execution_logging', 'tgsadmin') == 'yes') {
+		/* Ready system handling (for profiling system boot time) */
+		elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
 
-	/* Register a shutdown function to log execution time */
-	register_shutdown_function('tgsadmin_shutdown');
+		/* Register a shutdown function to log execution time */
+		register_shutdown_function('tgsadmin_shutdown');
+	}
 
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';

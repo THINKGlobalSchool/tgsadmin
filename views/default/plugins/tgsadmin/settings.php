@@ -22,6 +22,10 @@ if (!isset($vars['entity']->enable_maintenance)) {
 	$vars['entity']->enable_maintenance = 'no';
 }
 
+if (!isset($vars['entity']->enable_execution_logging)) {
+	$vars['entity']->enable_execution_logging = 'no';
+}
+
 $autofriend_heading = elgg_echo('tgsadmin:label:settings:autofriend');
 $autofriend_label = elgg_echo('tgsadmin:label:enableautofriend');
 $autofriend_input = elgg_view('input/dropdown', array(
@@ -74,6 +78,17 @@ $site_noreply_input = elgg_view('input/text', array(
 	'value' => $vars['entity']->noreplyemail,
 ));
 
+$loggingsettings_heading = elgg_echo('tgsadmin:label:loggingsettings');
+$logexecution_enable_label = elgg_echo('tgsadmin:label:enableexecution');
+$logexecution_enable_input = elgg_view('input/dropdown', array(
+	'name' => 'params[enable_execution_logging]',
+	'options_values' => array(
+		'no' => elgg_echo('option:no'),
+		'yes' => elgg_echo('option:yes')
+		),
+	'value' => $vars['entity']->enable_execution_logging,
+));
+
 $content = <<<HTML
 	<h3>$autofriend_heading</h3><br />
 	<div>
@@ -109,6 +124,13 @@ $content = <<<HTML
 		<div>
 			<label>$site_noreply_label</label>
 			$site_noreply_input
+		</div>
+	</div>
+	<h3>$loggingsettings_heading</h3><br />
+	<div>
+		<div>
+			<label>$logexecution_enable_label</label>
+			$logexecution_enable_input
 		</div>
 	</div>
 HTML;

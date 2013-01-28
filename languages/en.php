@@ -23,6 +23,7 @@ $english = array(
 	'tgsadmin:label:enableautofriend' => 'Enable autofriend',
 	'tgsadmin:label:enablemaintenance' => 'Enable maintenance mode',
 	'tgsadmin:label:enableexternallinks' => 'Enable external links (open external links in new window)',
+	'tgsadmin:label:enableexecution' => 'Enable execution time logging',
 	'tgsadmin:label:mmtitle' => 'Maintenance Title',
 	'tgsadmin:label:mmmessage' => 'Maintenance Message',
 	'tgsadmin:label:assignusers' => 'Select Users',
@@ -45,6 +46,7 @@ $english = array(
 	'tgsadmin:label:entityguid' => 'Entity GUID',
 	'tgsadmin:label:groupguid' => 'Group GUID',
 	'tgsadmin:label:emailsettings' => 'Email Settings',
+	'tgsadmin:label:loggingsettings' => 'Logging Settings',
 	'tgsadmin:label:noreplyemail' => 'No reply email',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
