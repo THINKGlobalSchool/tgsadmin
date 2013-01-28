@@ -122,8 +122,11 @@ function tgsadmin_init() {
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
 
-	/* Ready system handling (for profiling) */
+	/* Ready system handling (for profiling system boot time) */
 	elgg_register_event_handler('ready', 'system', 'tgsadmin_system_ready_handler',9999);
+
+	/* Register a shutdown function to log execution time */
+	register_shutdown_function('tgsadmin_shutdown');
 
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
@@ -365,7 +368,13 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
  */
 function tgsadmin_system_ready_handler($event, $object_type, $object) {
 	if (elgg_is_admin_logged_in()) {
-		elgg_dump(tgsadmin_get_execution_time());
+		elgg_dump("System Ready Time: " . tgsadmin_get_execution_time() . " seconds");
+	}
+}
+
+function tgsadmin_shutdown() {
+	if (elgg_is_admin_logged_in()) {
+		echo ("Script Execution: " . tgsadmin_get_execution_time() . " seconds");
 	}
 }
 
