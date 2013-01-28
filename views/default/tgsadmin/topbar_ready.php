@@ -9,6 +9,6 @@
  * @link http://www.thinkglobalschool.com/
  *
  */
-if (elgg_is_admin_logged_in()) {
+if (elgg_is_admin_logged_in() || get_input('show_execution')) {
 	echo "<div class='hidden' id='tgsadmin-topbar-ready-time'>" . tgsadmin_get_execution_time() . " seconds</div>";
 }

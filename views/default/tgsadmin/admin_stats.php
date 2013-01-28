@@ -12,7 +12,7 @@
 ?>
 <!-- ADD STUFF TO TOPBAR HERE -->
 <?php 
-	if (elgg_is_admin_logged_in()) {
+	if (elgg_is_admin_logged_in() || get_input('show_execution')) {
 		$foot_time = tgsadmin_get_execution_time();
 ?>
 	<div class='tgsadmin-stats'>
