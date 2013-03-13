@@ -65,13 +65,13 @@ elgg.externallinks.trimProtocol = function(str) {
 }
 
 elgg.externallinks.init = function() {
-		$("a").click(function (event) {
-			if (elgg.externallinks.isValidExternalLink($(this))) {
-				window.open($(this).attr('href'));
-				return false;
-			}
-			//event.preventDefault();
-		});
+	$(document).delegate('a', 'click', function (event) {
+		if (elgg.externallinks.isValidExternalLink($(this))) {
+			window.open($(this).attr('href'));
+			return false;
+		}
+		//event.preventDefault();
+	});
 }
 
 elgg.register_hook_handler('init', 'system', elgg.externallinks.init);
