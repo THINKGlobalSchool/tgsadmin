@@ -136,6 +136,11 @@ function tgsadmin_init() {
 		//register_shutdown_function('tgsadmin_shutdown');
 	}
 
+	/* Externallinks */
+	$js = elgg_get_simplecache_url('js', 'tgsadmin/externallinks');
+	elgg_register_simplecache_view('js/tgsadmin/externallinks');	
+	elgg_register_js('elgg.externallinks', $js);
+
 	/* ACTIONS */	
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
@@ -151,9 +156,6 @@ function tgsadmin_init() {
  */
 function tgsadmin_externallinks_init() {	
 	if (elgg_get_plugin_setting('enable_externallinks', 'tgsadmin') == 'yes') {
-		$js = elgg_get_simplecache_url('js', 'tgsadmin/externallinks');
-		elgg_register_simplecache_view('js/tgsadmin/externallinks');	
-		elgg_register_js('elgg.externallinks', $js);
 		elgg_load_js('elgg.externallinks');
 	}
 	
