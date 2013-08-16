@@ -48,6 +48,9 @@ $english = array(
 	'tgsadmin:label:emailsettings' => 'Email Settings',
 	'tgsadmin:label:loggingsettings' => 'Logging Settings',
 	'tgsadmin:label:noreplyemail' => 'No reply email',
+	'tgsadmin:label:assignuserstogroup' => 'Assign Individual Users To Group',
+	'tgsadmin:label:assignroletogroup' => 'Assign Role To Group',
+	'tgsadmin:label:removeusersfromgroup' => 'Assign Individual Users To Group',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 
@@ -58,6 +61,7 @@ $english = array(
 	// Error 
 	'tgsadmin:error:missing' => 'Required fields missing: Need at least one user',
 	'tgsadmin:error:invalidusergroup' => 'Invalid user or group',
+	'tgsadmin:error:invalidrolegroup' => 'Invalid role or group',
 	'tgsadmin:error:invaliduser' => 'Invalid User',
 	'tgsadmin:error:nodata' => 'No Data',
 	'tgsadmin:error:usernotification' => 'There was an error saving the user notification setting',

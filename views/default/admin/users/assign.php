@@ -10,16 +10,23 @@
  * 
  */
 $form_vars = array('id' => 'assign-form');
-echo elgg_view_form('tgsadmin/assign', $form_vars, array());
+$assign_users_form = elgg_view_form('tgsadmin/assign', $form_vars, array());
+echo elgg_view_module('inline', elgg_echo('tgsadmin:label:assignuserstogroup'), $assign_users_form);
+
+if (elgg_is_active_plugin('roles')) {
+	$assign_roles_form =  elgg_view_form('tgsadmin/assign_role', $form_vars, array());
+	echo elgg_view_module('inline', elgg_echo('tgsadmin:label:assignroletogroup'), $assign_roles_form);
+}
 
 $form_vars = array(
 	'id' => 'group-select-form',
 	'name' => 'group_select_form',
 	'action' => elgg_get_site_url() . "admin/users/assign"
 );
-echo elgg_view_form('tgsadmin/groupselect', $form_vars, array());
+$unassign_form =  elgg_view_form('tgsadmin/groupselect', $form_vars, array());
 
 if ($guid = get_input('entity_guid')) {
-	echo elgg_view('assign/members', array('guid' => $guid));
+	$unassign_form .= elgg_view('assign/members', array('guid' => $guid));
 }
-return $content;
+
+echo elgg_view_module('inline', elgg_echo('tgsadmin:label:removeusersfromgroup'), $unassign_form);

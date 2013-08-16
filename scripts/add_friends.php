@@ -29,4 +29,3 @@ if ($user) {
 } else {
 	echo 'Invalid User';
 }
-

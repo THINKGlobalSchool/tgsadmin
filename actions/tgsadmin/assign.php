@@ -41,4 +41,4 @@ foreach ($users as $user) {
 }
 	
 system_message(elgg_echo("tgsadmin:confirm:assigned", array($group->name)));
-forward($_SERVER['HTTP_REFERER']);
+forward(REFERER);
