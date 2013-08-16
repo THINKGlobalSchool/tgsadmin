@@ -14,7 +14,6 @@
 $params = array(
 	'name' => 'role_guid',
 	'show_hidden' => true,
-	'style' => 'width:90px',
 );
 
 $role_input = elgg_view('input/roledropdown', $params);
