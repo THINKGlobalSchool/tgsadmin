@@ -26,22 +26,18 @@ function assign_get_admin_content() {
  * @return array
  */
 function get_assign_groups() {
-	$groups = elgg_get_entities(array('types' => 'group', 'limit' => 9999));
-			
-	if (elgg_is_active_plugin('shared_access')) {
-	
-		$channels = elgg_get_entities(array('types' => 'object',
-											'subtypes' => 'shared_access',
-											'limit' => 9999
-									  		));
-		$groups = array_merge($groups, $channels);
-	}
+	$groups = elgg_get_entities(array(
+		'type' => 'group', 
+		'limit' => 0,
+		'joins' => array("JOIN " . elgg_get_config("dbprefix") . "groups_entity ge ON e.guid = ge.guid"),
+		"order_by" => "ge.name ASC"
+	));
 	
 	$dropdown = array();
 	$dropdown[0] = 'Select..';
 
 	foreach ($groups as $group) {
-		$dropdown[$group->getGUID()] = $group->title ? "Channel: " . $group->title : "Group: " . $group->name;
+		$dropdown[$group->getGUID()] = $group->name;
 	}
 	
 	return $dropdown;
