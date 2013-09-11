@@ -65,7 +65,7 @@ function tgsadmin_init() {
 	/* MAINTENANCE MODE */
 	// If logged in user isn't an admin, forward to mainenance page
 	if (elgg_get_plugin_setting('enable_maintenance', 'tgsadmin') == 'yes') {
-		if (!elgg_is_admin_logged_in() && elgg_is_logged_in()) {
+		if (!elgg_is_admin_logged_in()) {
 			global $CONFIG;
 			$CONFIG->pagesetupdone = true;
 
