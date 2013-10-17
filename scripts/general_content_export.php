@@ -17,7 +17,7 @@ function general_export_callback($row) {
 
 		$values = array(
 			$row->display_name,
-			date("F j, Y", $row->time_created),
+			date("F j Y", $row->time_created),
 			$row->url,
 		);
 		
