@@ -18,7 +18,6 @@ function general_export_callback($row) {
 		$values = array(
 			$row->display_name,
 			date("F j, Y", $row->time_created),
-			$row->entity_title,
 			$row->url,
 		);
 		
@@ -51,12 +50,9 @@ if ($subtype && $created_time_lower) {
 		'created_time_lower' => $created_time_lower,
 		'callback' => 'general_export_callback',
 		'selects' => array(
-			"ue.username as username",
 			"ue.name as display_name",
 			"ge.guid as group_guid",
-			"ge.name as group_name",
-			"oe.title as entity_title",
-			"oe.description as entity_description",
+			"ge.name as group_name"
 		),
 		'joins' => array(
 			"JOIN {$dbprefix}users_entity ue on e.owner_guid = ue.guid",
@@ -87,7 +83,7 @@ if ($subtype && $created_time_lower) {
 	// header("Pragma: no-cache");
 	// header("Expires: 0");
 
-	echo "User,Created,Title,URL\r\n";
+	echo "User,Created,URL\r\n";
 
 	// Chunk the output
 	for ($i = 0; $i < $chunks; $i++) {
