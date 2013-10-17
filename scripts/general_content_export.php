@@ -48,7 +48,7 @@ if ($subtype && $created_time_lower) {
 	$options = array(
 		'type' => 'object',
 		'subtype' => $subtype,
-		'created_time_lower' => '1346457600', // Sept 1, 2012 00:00:00
+		'created_time_lower' => $created_time_lower,
 		'callback' => 'general_export_callback',
 		'selects' => array(
 			"ue.username as username",
