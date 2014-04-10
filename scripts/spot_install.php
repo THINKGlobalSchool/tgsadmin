@@ -13,7 +13,7 @@ if (PHP_SAPI !== 'cli') {
 // Suppress notices
 ini_set('error_reporting',E_ALL ^ E_NOTICE);
 
-require_once(dirname(dirname(__FILE__)) . "/elgg/install/ElggInstaller.php");
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/install/ElggInstaller.php");
 
 $installer = new ElggInstaller();
 
