@@ -122,6 +122,10 @@ function tgsadmin_init() {
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
 
+	/* Re-register blog notification handler */
+	elgg_unregister_plugin_hook_handler('notify:entity:message', 'object', 'blog_notify_message');
+	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'tgsadmin_blog_notify_message');
+
 	/* Admin stats */
 	if (elgg_get_plugin_setting('enable_execution_logging', 'tgsadmin') == 'yes') {
 		// Extend topbar
@@ -372,6 +376,33 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
 	}
 	// Carry on..
 	return $value;
+}
+
+/**
+ * Set the blog notification message body
+ * 
+ * @param string $hook    Hook name
+ * @param string $type    Hook type
+ * @param string $message The current message body
+ * @param array  $params  Parameters about the blog posted
+ * @return string
+ */
+function tgsadmin_blog_notify_message($hook, $type, $message, $params) {
+	$entity = $params['entity'];
+	$to_entity = $params['to_entity'];
+	$method = $params['method'];
+	if (elgg_instanceof($entity, 'object', 'blog')) {
+		$descr = elgg_get_excerpt($entity->description); // Send excerpt from desc
+		$title = $entity->title;
+		$owner = $entity->getOwnerEntity();
+		return elgg_echo('blog:notification', array(
+			$owner->name,
+			$title,
+			$descr,
+			$entity->getURL()
+		));
+	}
+	return null;
 }
 
 
