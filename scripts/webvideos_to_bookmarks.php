@@ -8,7 +8,7 @@ admin_gatekeeper();
 
 
 // Start the convert!
-if (get_input('engage')) {
+if (get_input('convert')) {
 	set_time_limit(0);
 
 	echo "<pre>";
@@ -81,9 +81,29 @@ if (get_input('engage')) {
 	}
 
 	echo "</pre>";
+}  else if (get_input('update')) {
+	set_time_limit(0);
 
+	echo "<pre>";
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'bookmarks',
+		'limit' => 0
+	);
+
+	$bookmarks = new ElggBatch('elgg_get_entities', $options);
+
+	foreach ($bookmarks as $bookmark) {
+		echo "UPDATING: {$bookmark->guid}\r\n";
+		$bookmark->preview_image = null;
+		_elgg_invalidate_cache_for_entity($bookmark->guid);
+		bookmarks_extender_populate_preview($bookmark);
+	}
+
+	echo "</pre>";
 } else {
 	// Destiny Links
 	echo "<h3>webvideos => bookmarks</h3>";
-	echo "<a href='webvideos_to_bookmarks.php?engage=1'>Start conversion</a><br />";
+	echo "<a href='webvideos_to_bookmarks.php?convert=1'>Start conversion</a><br />";
+	echo "<a href='webvideos_to_bookmarks.php?update=1'>Update bookmark previews</a><br />";
 }
