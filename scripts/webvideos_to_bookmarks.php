@@ -69,6 +69,8 @@ if (get_input('convert')) {
 
 				$video->address = $video->url;
 
+				$video->preview_image = null;
+
 				_elgg_invalidate_cache_for_entity($video->guid);
 
 				bookmarks_extender_populate_preview($video);
