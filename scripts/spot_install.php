@@ -27,7 +27,7 @@ $params = array(
 	//site settings
 	'sitename' => 'Spot Vagrant',
 	'siteemail' => 'admin@localhost.local',
-	'wwwroot' => 'http://127.0.0.1:8080/',
+	'wwwroot' => 'http://192.168.50.50/',
 	'dataroot' => '/home/vagrant/elgg/elgg_data/',
 
 	//admin account
