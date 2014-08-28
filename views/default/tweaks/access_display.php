@@ -26,6 +26,11 @@ switch ($item->access_id) {
 	case -2 :
 		$content = 'Friends Only';
 		break;
+	// Todo's
+	case -10:
+		$object = get_entity($item->object_guid);
+		$content = "Todo: {$object->title}";
+		break;
 	default:
 		$acl = get_access_collection($item->access_id);
 		$content = $acl->name;
