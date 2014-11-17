@@ -18,7 +18,7 @@ switch ($item->access_id) {
 		$content = 'Private';
 		break;
 	case 1: 
-		$content = 'Logged In Users';
+		$content = elgg_echo('LOGGED_IN');
 		break;
 	case 2:
 		$content = 'Public';
