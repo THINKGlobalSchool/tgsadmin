@@ -41,7 +41,7 @@ function entity_analytics_callback($row) {
 			$row->time_created,
 			$row->entity_title,
 			$row->url,
-			$row->downloadUrl
+			$entity->downloadUrl
 		);
 		
 		$string = implode("\t", $values);
