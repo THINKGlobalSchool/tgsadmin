@@ -111,6 +111,10 @@ if (get_input('entities')) {
 		'count' => true, 
 	);
 
+	if (get_input('subtype')) {
+		$options['subtype'] = get_input('subtype');
+	}
+
 	// Get a count
 	$count = elgg_get_entities_from_metadata($options);
 
