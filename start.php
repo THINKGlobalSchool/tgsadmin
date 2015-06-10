@@ -49,6 +49,9 @@ function tgsadmin_init() {
 	// Register handler for pagesetup event to set up admin menu
 	elgg_register_event_handler('pagesetup', 'system', 'tgsadmin_setup_menu');
 	
+	// Disable system logging
+	elgg_unregister_event_handler('log', 'systemlog', 'system_log_default_logger');
+	elgg_unregister_event_handler('all', 'all', 'system_log_listener');
 	
 	/* ADMIN NOTIFICATIONS */
 	// Register admin notifications JS

@@ -18,13 +18,18 @@ switch ($item->access_id) {
 		$content = 'Private';
 		break;
 	case 1: 
-		$content = 'Logged In Users';
+		$content = elgg_echo('LOGGED_IN');
 		break;
 	case 2:
 		$content = 'Public';
 		break;
 	case -2 :
 		$content = 'Friends Only';
+		break;
+	// Todo's
+	case -10:
+		$object = get_entity($item->object_guid);
+		$content = "Todo: {$object->title}";
 		break;
 	default:
 		$acl = get_access_collection($item->access_id);
