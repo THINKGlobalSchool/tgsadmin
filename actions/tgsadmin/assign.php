@@ -5,13 +5,13 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2010 - 2012
- * @link http://www.thinkglobalschool.com
+ * @copyright Think Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org
  *
  */
 
 // get input
-$users	= get_input('members');
+$users	= get_input('users');
 $group_guid = get_input('groups');
 
 // check values

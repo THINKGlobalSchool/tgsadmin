@@ -5,11 +5,11 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2010 - 2012
- * @link http://www.thinkglobalschool.com
+ * @copyright Think Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org
  *
  */
-$english = array(
+return array(
 	
 	// Admin menu entries
 	'admin:tgsadmin' => 'TGS Admin',
@@ -21,11 +21,8 @@ $english = array(
 	
 	// Labels
 	'tgsadmin:label:enableautofriend' => 'Enable autofriend',
-	'tgsadmin:label:enablemaintenance' => 'Enable maintenance mode',
 	'tgsadmin:label:enableexternallinks' => 'Enable external links (open external links in new window)',
 	'tgsadmin:label:enableexecution' => 'Enable execution time logging',
-	'tgsadmin:label:mmtitle' => 'Maintenance Title',
-	'tgsadmin:label:mmmessage' => 'Maintenance Message',
 	'tgsadmin:label:assignusers' => 'Select Users',
 	'tgsadmin:label:assigngroups' => 'Assign To',
 	'tgsadmin:label:unassign' => 'Unassign Users',
@@ -33,7 +30,6 @@ $english = array(
 	'tgsadmin:label:remove' => 'Remove',
 	'tgsadmin:label:settings:autofriend' => 'Autofriend Settings',
 	'tgsadmin:label:settings:externalsettings' => 'External Links Settings',
-	'tgsadmin:label:settings:maintenancesettings' => 'Maintenance Mode Settings',
 	'tgsadmin:label:editusersettings' => 'Edit settings',
 	'tgsadmin:label:usernameemail' => 'Username -or- Email',
 	'tgsadmin:password:text' => 'To request a new password, enter your username or email below and click the Request button.',
@@ -50,7 +46,7 @@ $english = array(
 	'tgsadmin:label:noreplyemail' => 'No reply email',
 	'tgsadmin:label:assignuserstogroup' => 'Assign Individual Users To Group',
 	'tgsadmin:label:assignroletogroup' => 'Assign Role To Group',
-	'tgsadmin:label:removeusersfromgroup' => 'Assign Individual Users To Group',
+	'tgsadmin:label:removeusersfromgroup' => 'Remove Individual Users From Group',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 
@@ -133,5 +129,3 @@ To view %s's profile, click here:
 %s",
 
 );
-
-add_translation('en',$english);

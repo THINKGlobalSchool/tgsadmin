@@ -5,7 +5,7 @@
  * @package TGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.org/
  * 
  */
@@ -31,10 +31,11 @@ foreach ($users as $user) {
 	
 	$href = elgg_get_site_url() . "action/tgsadmin/unassign?user=" . $user->getGUID() . "&e=" . $entity->getGUID();
 	
-	$remove_link = elgg_view('output/confirmlink', array(
+	$remove_link = elgg_view('output/url', array(
 		'href' => $href,
 		'text' => elgg_echo('tgsadmin:label:remove'),
-		'class' => 'elgg-button'
+		'class' => 'elgg-button',
+		'confirm' => TRUE
 	));
 
 	$content .= <<<HTML

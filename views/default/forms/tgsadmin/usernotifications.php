@@ -12,7 +12,7 @@
 
 admin_gatekeeper();
 
-global $NOTIFICATION_HANDLERS;
+$NOTIFICATION_HANDLERS = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
 
 $options = array(
 	'type' => 'user',

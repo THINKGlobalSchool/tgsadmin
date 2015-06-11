@@ -5,8 +5,8 @@
  * @package Assign
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010
- * @link http://www.thinkglobalschool.com/
+ * @copyright THINK Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org/
  * 
  */
 
@@ -23,7 +23,7 @@ if (elgg_instanceof($entity, 'group')) {
 	// Set group as page owner to handle ACL's properly
 	elgg_set_page_owner_guid($entity->guid);
 	// Leave group
-	leave_group($entity->getGUID(), $user->getGUID());
+	$entity->leave($user);
 } else if (elgg_instanceof($entity, 'object', 'shared_access')) {
 	// Leave SAV
 	remove_entity_relationship($user->getGUID(), 'shared_access_member', $entity->getGUID());

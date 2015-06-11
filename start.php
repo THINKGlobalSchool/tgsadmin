@@ -5,26 +5,21 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2010 - 2012
- * @link http://www.thinkglobalschool.com
+ * @copyright Think Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org
  * 
  * Provides the following features/functionality
- * - Autofriend: new users are automatically 'friended' with all of the other sites users
- * - Maintenance Mode: allows admins to take an elgg site down and display a maintenance message to regular users
- * - Assign: Allows admins to easily assign users to groups and channels
+ * - Assign: Allows admins to easily assign users to groups
  * - External Links: Externallinks will open in a new tab/window
  * - Manage User Notifications
  * 
  * Also includes the following tweaks from the tgstweaks plugin
  * - Extend river wrapper to show which access level/group each entry belongs to
  * - Extend messages view to add next/previous buttons
- * - Better looking tag cloud
  * - Add groups to activity sidebar
  * 
  * The following views have been added/overidden
  * - river/object/file/create (to show old files entries)
- * - output/tagcloud                (tags point to a tagdashboard/better formatting)
- * - output/tags                    (tags point to a tagdashboard)
  * - output/tag                     (tags point to a tagdashboard)
  * - core/settings/account/email    (email is read only for non-admins)
  * - core/settings/account/password (added a link to reset current password)
@@ -39,10 +34,7 @@ elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
 /**
  * TGSAdmin Init
  */
-function tgsadmin_init() {
-	
-	tgsadmin_pqp_init();
-	
+function tgsadmin_init() {	
 	elgg_register_library('elgg:tgsadmin', elgg_get_plugins_path() . 'tgsadmin/lib/tgsadmin.php');
 	elgg_load_library('elgg:tgsadmin');
 	
@@ -61,27 +53,6 @@ function tgsadmin_init() {
 	
 	elgg_register_page_handler('tgsadmin_notifications', 'tgsadmin_notifications_page_handler');
 	
-	/* AUTOFRIEND */
-	// Register an event handler to catch the creation of new users
-	elgg_register_event_handler('create', 'user', 'autofriend_event',501);
-	
-	/* MAINTENANCE MODE */
-	// If logged in user isn't an admin, forward to mainenance page
-	if (elgg_get_plugin_setting('enable_maintenance', 'tgsadmin') == 'yes') {
-		if (!elgg_is_admin_logged_in()) {
-			global $CONFIG;
-			$CONFIG->pagesetupdone = true;
-
-			elgg_set_viewtype('failsafe');
-			$body = elgg_view("messages/exceptions/maintenanceexception", array(
-				// Throw custom exception
-				'object' => new MaintenanceModeException(elgg_get_plugin_setting('maintenance_message', 'tgsadmin'))
-			));
-			echo elgg_view_page(elgg_get_plugin_setting('maintenance_title', 'tgsadmin'), $body);
-			exit;
-		}
-	}
-	
 	/** OTHER UTILITES **/
 	$tu_js = elgg_get_simplecache_url('js', 'tgsadmin/utilities');
 	elgg_register_simplecache_view('js/tgsadmin/utilities');	
@@ -95,10 +66,10 @@ function tgsadmin_init() {
 	elgg_register_page_handler('forgotpassword', 'tgsadmin_forgotpassword_page_handler');
 	
 	// Unregister resetpassword page handler
-	elgg_unregister_page_handler('resetpassword');
+	elgg_unregister_page_handler('forgotpassword');
 
 	// Register new page handler
-	elgg_register_page_handler('resetpassword', 'tgsadmin_resetpassword_page_handler');
+	elgg_register_page_handler('forgotpassword', 'tgsadmin_resetpassword_page_handler');
 	
 	/* TGS TWEAKS */
 	// Include the access level in the river item view
@@ -112,9 +83,6 @@ function tgsadmin_init() {
 	
 	// Include the messages navigation 
 	elgg_extend_view('object/messages', 'tweaks/messages_navigation');
-	
-	// Extend Sidebar for tag cloud (Disabled for performance reasons)
-	//elgg_extend_view('page/elements/sidebar', 'tweaks/tagcloud', 502);
 	
 	/* Assign/Unassign */
 	elgg_extend_view('css/admin', 'css/tgsadmin/assign');
@@ -168,28 +136,6 @@ function tgsadmin_externallinks_init() {
 	}
 	
 	return true;
-}
-
-/**
- * Autofriend event 
- */
-function autofriend_event($event, $object_type, $object) {	
-	// Only if this is enabled
-	if (elgg_get_plugin_setting('enable_autofriend', 'tgsadmin') == 'yes') {
-		// Get site members
-		$site = get_entity($object['site_guid']);
-		$members = $site->getMembers(array('limit' => 0));
-		if (($members) && is_array($members)) {
-			foreach ($members as $member) {
-				if ($object instanceof ElggUser) {
-					// Add newly created user to each members friends
-					$member->addFriend($object->getGUID());
-					// Add member to new user's friends 
-					$object->addFriend($member->getGUID());
-				}
-			}		
-		}
-	}
 }
 
 /**
@@ -297,7 +243,7 @@ function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
 		'guid' => $user_guid,
 		'code' => $code,
 	);
-	$form = elgg_view_form('user/passwordreset', array('class' => 'elgg-form-account'), $params);
+	$form = elgg_view_form('user/requestnewpassword', array('class' => 'elgg-form-account'), $params);
 
 	$title = elgg_echo('resetpassword');
 	$content = elgg_view_title(elgg_echo('resetpassword')) . $form;
@@ -306,22 +252,6 @@ function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
 
 	echo elgg_view_page($title, $body);
 
-}
-
-/**
- * Init PQP Profiler
- */
-function tgsadmin_pqp_init() {
-	/* PQP INIT */
-	if (get_input('pqp_profiler') == 'pqp_profile') {
-		global $CONFIG;
-		include_once elgg_get_plugins_path() . "tgsadmin/vendors/pqp/classes/PhpQuickProfiler.php";
-		$CONFIG->pqp_profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime(), elgg_get_plugins_path() . "tgsadmin/vendors/pqp/");
-		$CONFIG->pqp_db = new stdClass();
-		$CONFIG->pqp_db->queries = array();
-		$CONFIG->pqp_db->queryCount = 0;
-	}
-	elgg_extend_view('page/elements/foot', 'tgsadmin/pqp');
 }
 
 /**
@@ -354,7 +284,7 @@ function tgsadmin_email_handler($hook, $type, $value, $params) {
 		$site_email = $site->email;
 
 		// Get no-reply email address (may have already fallen back to this)
-		$noreply_email = 'noreply@' . get_site_domain($site->guid);
+		$noreply_email = 'noreply@' . $site->getDomain();
 
 		// If we're sending an email from the site or noreply
 		if ($params['from'] == $site_email || $params['from'] == $noreply_email) {
@@ -407,15 +337,6 @@ function tgsadmin_blog_notify_message($hook, $type, $message, $params) {
 	}
 	return null;
 }
-
-
-// function tgsadmin_shutdown() {
-// 	if (elgg_is_admin_logged_in()) {
-// 		// $_SESSION['_script_execution_time'] = tgsadmin_get_execution_time();
-// 		//echo($_SESSION['_script_execution_time']);
-// 		//echo (tgsadmin_get_execution_time());
-// 	}
-// }
 
 function tgsadmin_get_execution_time() {
 	global $START_MICROTIME;

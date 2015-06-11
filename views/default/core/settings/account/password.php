@@ -25,7 +25,7 @@ if ($user) {
 		<?php
 			echo elgg_view('input/password', array('name' => 'current_password'));
 		?>
-		<a class="forgot_link" href="<?php echo elgg_get_site_url(); ?>resetpassword">
+		<a class="forgot_link" href="<?php echo elgg_get_site_url(); ?>forgotpassword">
 			<?php echo elgg_echo('tgsadmin:label:forgotcurrent'); ?>
 		</a>
 		</p>

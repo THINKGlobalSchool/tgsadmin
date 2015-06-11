@@ -63,7 +63,7 @@ elgg_register_menu_item('tgsadmin-notifications-admin-menu', array(
 	'href' => '#tgsadmin-admin-user-notifications',
 	'priority' => 0,
 	'item_class' => 'elgg-state-selected',
-	'class' => 'tgsadmin-notifications-admin-menu-item',
+	'link_class' => 'tgsadmin-notifications-admin-menu-item',
 ));
 
 elgg_register_menu_item('tgsadmin-notifications-admin-menu', array(
@@ -71,7 +71,7 @@ elgg_register_menu_item('tgsadmin-notifications-admin-menu', array(
 	'text' => elgg_echo('tgsadmin:label:notificationsscripts'),
 	'href' => '#tgsadmin-admin-scripts',
 	'priority' => 1,
-	'class' => 'tgsadmin-notifications-admin-menu-item',
+	'link_class' => 'tgsadmin-notifications-admin-menu-item',
 ));
 
 $menu = elgg_view_menu('tgsadmin-notifications-admin-menu', array(
@@ -91,7 +91,7 @@ $enable_site_input = elgg_view('input/button', array(
 	'name' => 'site',
 ));
 
-$user_notifications = elgg_view('admin/tgsadmin/usernotifications');
+$user_notifications = elgg_view_form('tgsadmin/usernotifications');
 
 $content = <<<HTML
 	<div>
