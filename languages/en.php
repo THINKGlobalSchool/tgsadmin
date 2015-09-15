@@ -47,6 +47,8 @@ return array(
 	'tgsadmin:label:assignuserstogroup' => 'Assign Individual Users To Group',
 	'tgsadmin:label:assignroletogroup' => 'Assign Role To Group',
 	'tgsadmin:label:removeusersfromgroup' => 'Remove Individual Users From Group',
+	'tgsadmin:label:cronsettings' => 'Cron Settings',
+	'tgsadmin:label:cronquerykey' => 'Cron Query Key',
 
 	'sidebar:groups:createorjoinlink' => 'Create or Join a Group', 
 

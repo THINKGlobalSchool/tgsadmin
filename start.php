@@ -23,6 +23,9 @@
  * - output/tag                     (tags point to a tagdashboard)
  * - core/settings/account/email    (email is read only for non-admins)
  * - core/settings/account/password (added a link to reset current password)
+ *
+ * Other features:
+ * - Secure cron
  */
 
 // Register init event 
@@ -70,6 +73,11 @@ function tgsadmin_init() {
 
 	// Register new page handler
 	elgg_register_page_handler('forgotpassword', 'tgsadmin_resetpassword_page_handler');
+
+	/* Secure CRON */
+	elgg_unregister_page_handler('cron');
+
+	elgg_register_page_handler('cron', 'tgsadmin_cron_page_handler');
 	
 	/* TGS TWEAKS */
 	// Include the access level in the river item view
@@ -124,6 +132,51 @@ function tgsadmin_init() {
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
 	elgg_register_action('tgsadmin/move_entity', "$action_base/move_entity.php", 'admin');
+}
+
+/**
+ * Cron handler
+ *
+ * @param array $page Pages
+ *
+ * @return bool
+ * @throws CronException
+ * @access private
+ */
+function tgsadmin_cron_page_handler($page) {
+	if (!isset($page[0])) {
+		forward();
+	}
+
+	// Secure cron with a simple query string key
+	$key = elgg_get_plugin_setting('cronquerykey', 'tgsadmin');
+
+	if (get_input('key') !== $key) {
+		return false;
+	}
+
+	$period = strtolower($page[0]);
+
+	$allowed_periods = elgg_get_config('elgg_cron_periods');
+
+	if (!in_array($period, $allowed_periods)) {
+		throw new \CronException("$period is not a recognized cron period.");
+	}
+
+	// Get a list of parameters
+	$params = array();
+	$params['time'] = time();
+
+	// Data to return to
+	$old_stdout = "";
+	ob_start();
+
+	$old_stdout = elgg_trigger_plugin_hook('cron', $period, $params, $old_stdout);
+	$std_out = ob_get_clean();
+
+	echo $std_out . $old_stdout;
+
+	return true;
 }
 
 /**
@@ -337,6 +390,7 @@ function tgsadmin_blog_notify_message($hook, $type, $message, $params) {
 	}
 	return null;
 }
+
 
 function tgsadmin_get_execution_time() {
 	global $START_MICROTIME;

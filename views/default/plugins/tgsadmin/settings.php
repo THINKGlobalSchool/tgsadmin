@@ -46,6 +46,13 @@ $logexecution_enable_input = elgg_view('input/dropdown', array(
 	'value' => $vars['entity']->enable_execution_logging,
 ));
 
+$cronsettings_heading = elgg_echo('tgsadmin:label:cronsettings');
+$cron_query_key_label = elgg_echo('tgsadmin:label:cronquerykey');
+$cron_query_key_input = elgg_view('input/text', array(
+	'name' => 'params[cronquerykey]',
+	'value' => $vars['entity']->cronquerykey,
+));
+
 $content = <<<HTML
 	<h3>$externalsettings_heading</h3><br />
 	<div>
@@ -66,6 +73,13 @@ $content = <<<HTML
 		<div>
 			<label>$logexecution_enable_label</label>
 			$logexecution_enable_input
+		</div>
+	</div>
+	<h3>$cronsettings_heading</h3><br />
+	<div>
+		<div>
+			<label>$cron_query_key_label</label>
+			$cron_query_key_input
 		</div>
 	</div>
 HTML;
