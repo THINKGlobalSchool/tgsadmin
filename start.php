@@ -97,6 +97,7 @@ function tgsadmin_init() {
 	
 	/* Extra HTMLawed Config */
 	elgg_register_plugin_hook_handler('config', 'htmlawed', 'tgsadmin_htmlawed_config_handler');
+	elgg_register_plugin_hook_handler('allowed_styles', 'htmlawed', 'tgsadmin_htmlawed_allowed_styles_handler');
 
 	/* Customize outgoing emails */
 	elgg_register_plugin_hook_handler('email', 'system', 'tgsadmin_email_handler');
@@ -319,6 +320,21 @@ function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
 function tgsadmin_htmlawed_config_handler($hook, $type, $config, $params) {
 	$config['cdata'] = 1;
 	return $config;
+}
+
+/**
+ * Allow additional styles for HTMLawed
+ *
+ * @param string $hook   Hook name
+ * @param string $type   The type of hook
+ * @param mixed  $config The HTMLawed config
+ * @param array  $params Not used
+ * @return mixed
+ */
+function tgsadmin_htmlawed_allowed_styles_handler($hook, $type, $config, $params) {
+	$allowed_styles[] = 'width';
+	$allowed_styles[] = 'height';
+	return $allowed_styles;
 }
 
 /**
