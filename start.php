@@ -334,6 +334,9 @@ function tgsadmin_htmlawed_config_handler($hook, $type, $config, $params) {
 function tgsadmin_htmlawed_allowed_styles_handler($hook, $type, $config, $params) {
 	$allowed_styles[] = 'width';
 	$allowed_styles[] = 'height';
+	$allowed_styles[] = 'text-align';
+	$allowed_styles[] = 'margin-left';
+	$allowed_styles[] = 'margin-right';
 	return $allowed_styles;
 }
 
