@@ -335,8 +335,18 @@ function tgsadmin_htmlawed_allowed_styles_handler($hook, $type, $config, $params
 	$allowed_styles[] = 'width';
 	$allowed_styles[] = 'height';
 	$allowed_styles[] = 'text-align';
+	$allowed_styles[] = 'padding';
+	$allowed_styles[] = 'padding-top';
+	$allowed_styles[] = 'padding-left';
+	$allowed_styles[] = 'padding-right';
+	$allowed_styles[] = 'padding-bottom';
+	$allowed_styles[] = 'margin';
 	$allowed_styles[] = 'margin-left';
 	$allowed_styles[] = 'margin-right';
+	$allowed_styles[] = 'margin-top';
+	$allowed_styles[] = 'margin-bottom';
+	$allowed_styles[] = 'float';
+	$allowed_styles[] = 'font-size';
 	return $allowed_styles;
 }
 
