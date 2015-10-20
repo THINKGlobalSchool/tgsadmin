@@ -347,6 +347,8 @@ function tgsadmin_htmlawed_allowed_styles_handler($hook, $type, $config, $params
 	$allowed_styles[] = 'margin-bottom';
 	$allowed_styles[] = 'float';
 	$allowed_styles[] = 'font-size';
+	$allowed_styles[] = 'background-color';
+	$allowed_styles[] = 'color';
 	return $allowed_styles;
 }
 
