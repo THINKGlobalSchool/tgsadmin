@@ -68,11 +68,13 @@ function tgsadmin_init() {
 	// Register new page hanler 
 	elgg_register_page_handler('forgotpassword', 'tgsadmin_forgotpassword_page_handler');
 	
-	// Unregister resetpassword page handler
+	// Unregister resetpassword/changepassword page handler
 	elgg_unregister_page_handler('forgotpassword');
+	elgg_unregister_page_handler('changepassword');
 
-	// Register new page handler
+	// Register new page handlers
 	elgg_register_page_handler('forgotpassword', 'tgsadmin_resetpassword_page_handler');
+	elgg_register_page_handler('changepassword', 'tgsadmin_changepassword_page_handler');
 
 	/* Secure CRON */
 	elgg_unregister_page_handler('cron');
@@ -271,41 +273,50 @@ function tgsadmin_notifications_page_handler($page) {
  * @return void
  */
 function tgsadmin_resetpassword_page_handler($page_elements, $handler) {
-	if (elgg_is_logged_in()) {
-		// Allow logged in users to reset their password
-		$user = elgg_get_logged_in_user_entity();
-		$user_guid = $user->guid;
-		
-		// Need to generate a code (skipping email validation)
-		$code = generate_random_cleartext_password();
-		$user->setPrivateSetting('passwd_conf_code', $code);
-	
-	} else {
-		$user_guid = get_input('u');
-		$code = get_input('c');
+	$title = elgg_echo("user:password:lost");
 
-		$user = get_entity($user_guid);
-	}
+	$content = elgg_view_form('tgsadmin/requestnewpassword', array(
+		'class' => 'elgg-form-account',
+	));
+
+	if (elgg_get_config('walled_garden')) {
+		elgg_load_css('elgg.walled_garden');
+		$body = elgg_view_layout('walled_garden', array('content' => $content));
+		echo elgg_view_page($title, $body, 'walled_garden');
+	} else {
+		$body = elgg_view_layout('one_column', array(
+			'title' => $title, 
+			'content' => $content,
+		));
+		echo elgg_view_page($title, $body);
+	}	
+}
+
+function tgsadmin_changepassword_page_handler($page_elements, $handler) {
+	$user_guid = get_input('u');
+	$code = get_input('c');
+
+	$user = get_entity($user_guid);
 
 	// don't check code here to avoid automated attacks
 	if (!$user instanceof ElggUser) {
-		register_error(elgg_echo('user:passwordreset:unknown_user'));
+		register_error(elgg_echo('user:resetpassword:unknown_user'));
 		forward();
 	}
+
+	$title = elgg_echo('changepassword');
 
 	$params = array(
 		'guid' => $user_guid,
 		'code' => $code,
 	);
-	$form = elgg_view_form('user/requestnewpassword', array('class' => 'elgg-form-account'), $params);
+	$content = elgg_view_form('user/changepassword', array('class' => 'elgg-form-account'), $params);
 
-	$title = elgg_echo('resetpassword');
-	$content = elgg_view_title(elgg_echo('resetpassword')) . $form;
-
-	$body = elgg_view_layout('one_column', array('content' => $content));
-
+	$body = elgg_view_layout('one_column', array(
+		'title' => $title,
+		'content' => $content,
+	));
 	echo elgg_view_page($title, $body);
-
 }
 
 /**
