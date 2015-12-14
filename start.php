@@ -40,6 +40,9 @@ elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
 function tgsadmin_init() {	
 	elgg_register_library('elgg:tgsadmin', elgg_get_plugins_path() . 'tgsadmin/lib/tgsadmin.php');
 	elgg_load_library('elgg:tgsadmin');
+
+	// Override old htmlawed library
+	elgg_register_library('htmlawed', elgg_get_plugins_path() . 'tgsadmin/lib/htmlawed.php');
 	
 	// Register handler for pagesetup event to set up admin menu
 	elgg_register_event_handler('pagesetup', 'system', 'tgsadmin_setup_menu');
@@ -330,6 +333,8 @@ function tgsadmin_changepassword_page_handler($page_elements, $handler) {
  */
 function tgsadmin_htmlawed_config_handler($hook, $type, $config, $params) {
 	$config['cdata'] = 1;
+	$config['elements'] = "*+section";
+	$config['deny_attribute'] = 'on*';
 	return $config;
 }
 
