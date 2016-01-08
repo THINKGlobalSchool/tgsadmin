@@ -5,7 +5,7 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2010 - 2015
+ * @copyright Think Global School 2010 - 2016
  * @link http://www.thinkglobalschool.org
  * 
  * Provides the following features/functionality
@@ -33,6 +33,9 @@ elgg_register_event_handler('init', 'system', 'tgsadmin_init');
 
 // Registering for the 'ready' system event for externallinks
 elgg_register_event_handler('ready', 'system', 'tgsadmin_externallinks_init');
+
+// Include extra logic when handling exceptions
+elgg_set_config('exception_include', elgg_get_plugins_path() . 'tgsadmin/lib/exception.php');
 
 /**
  * TGSAdmin Init
@@ -443,3 +446,20 @@ function tgsadmin_get_execution_time() {
 	global $START_MICROTIME;
 	return round((microtime(true) - $START_MICROTIME), 4);
 }
+
+// Shutdown handler intended to catch fatal errors and send an email notification
+function fatalErrorShutdownHandler() {
+  	$last_error = error_get_last();
+
+  	$notify = elgg_get_plugin_setting('fatalemail', 'tgsadmin');
+
+  	$type = $last_error['type'];
+
+	if (($type === E_ERROR) && !empty($notify)) { 
+		// Send mail
+		$time = time();
+		mail($notify, "Fatal error: {$time}", "{$last_error['type']} {$last_error['message']} {$last_error['file']} {$last_error['line']}");
+	}
+}
+
+register_shutdown_function('fatalErrorShutdownHandler');

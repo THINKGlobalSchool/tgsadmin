@@ -44,6 +44,7 @@ return array(
 	'tgsadmin:label:emailsettings' => 'Email Settings',
 	'tgsadmin:label:loggingsettings' => 'Logging Settings',
 	'tgsadmin:label:noreplyemail' => 'No reply email',
+	'tgsadmin:label:fatalemail' => 'Fatal error email',
 	'tgsadmin:label:assignuserstogroup' => 'Assign Individual Users To Group',
 	'tgsadmin:label:assignroletogroup' => 'Assign Role To Group',
 	'tgsadmin:label:removeusersfromgroup' => 'Remove Individual Users From Group',

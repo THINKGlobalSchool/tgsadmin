@@ -5,8 +5,8 @@
  * @package ElggTGSAdmin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright Think Global School 2010 - 2015
- * @link http://www.thinkglobalschool.com
+ * @copyright Think Global School 2010 - 2016
+ * @link http://www.thinkglobalschool.org
  */
 
 if (!isset($vars['entity']->enable_externallinks)) {
@@ -35,6 +35,12 @@ $site_noreply_input = elgg_view('input/text', array(
 	'value' => $vars['entity']->noreplyemail,
 ));
 
+$fatal_notify_label = elgg_echo('tgsadmin:label:fatalemail');
+$fatal_notify_input = elgg_view('input/text', array(
+	'name' => 'params[fatalemail]',
+	'value' => $vars['entity']->fatalemail,
+));
+
 $loggingsettings_heading = elgg_echo('tgsadmin:label:loggingsettings');
 $logexecution_enable_label = elgg_echo('tgsadmin:label:enableexecution');
 $logexecution_enable_input = elgg_view('input/dropdown', array(
@@ -56,31 +62,27 @@ $cron_query_key_input = elgg_view('input/text', array(
 $content = <<<HTML
 	<h3>$externalsettings_heading</h3><br />
 	<div>
-		<div>
-			<label>$externallinks_label</label>
-			$externallinks_input
-		</div>
+		<label>$externallinks_label</label>
+		$externallinks_input
 	</div>
 	<h3>$emailsettings_heading</h3><br />
 	<div>
+		<label>$site_noreply_label</label>
+		$site_noreply_input
+	</div>
 		<div>
-			<label>$site_noreply_label</label>
-			$site_noreply_input
-		</div>
+		<label>$fatal_notify_label</label>
+		$fatal_notify_input
 	</div>
 	<h3>$loggingsettings_heading</h3><br />
 	<div>
-		<div>
-			<label>$logexecution_enable_label</label>
-			$logexecution_enable_input
-		</div>
+		<label>$logexecution_enable_label</label>
+		$logexecution_enable_input
 	</div>
 	<h3>$cronsettings_heading</h3><br />
 	<div>
-		<div>
-			<label>$cron_query_key_label</label>
-			$cron_query_key_input
-		</div>
+		<label>$cron_query_key_label</label>
+		$cron_query_key_input
 	</div>
 HTML;
 
