@@ -141,8 +141,6 @@ function tgsadmin_init() {
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
 	elgg_register_action('tgsadmin/move_entity', "$action_base/move_entity.php", 'admin');
-
-	lel();
 }
 
 /**
