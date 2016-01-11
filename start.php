@@ -141,6 +141,8 @@ function tgsadmin_init() {
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');
 	elgg_register_action('tgsadmin/move_entity', "$action_base/move_entity.php", 'admin');
+
+	lel();
 }
 
 /**
@@ -457,8 +459,9 @@ function fatalErrorShutdownHandler() {
 
 	if (($type === E_ERROR) && !empty($notify)) { 
 		// Send mail
+		$current_url = current_page_url();
 		$time = time();
-		mail($notify, "Fatal error: {$time}", "{$last_error['type']} {$last_error['message']} {$last_error['file']} {$last_error['line']}");
+		mail($notify, "Fatal error: {$time}", "{$last_error['type']} {$last_error['message']} In File: {$last_error['file']} Line: {$last_error['line']} On page: {$current_url}");
 	}
 }
 

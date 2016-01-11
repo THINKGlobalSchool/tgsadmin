@@ -17,5 +17,6 @@ if (!empty($notify)) {
 	$time = time();
 	$type = get_class($exception);
 	$message = $exception->getMessage();
-	mail($notify, "{$type}: {$time}", "{$last_error['type']} {$message}\r\n" . nl2br(htmlentities(print_r($exception, true), ENT_QUOTES, 'UTF-8')));
+	$current_url = current_page_url();
+	mail($notify, "{$type}: {$time}", "{$last_error['type']} {$message} On Page: {$current_url} \r\n" . nl2br(htmlentities(print_r($exception, true), ENT_QUOTES, 'UTF-8')));
 }
