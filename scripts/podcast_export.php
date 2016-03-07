@@ -3,7 +3,7 @@
  * Export User Podcasts
  *
  */
-
+ini_set('max_execution_time', 300);
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php");
 admin_gatekeeper();
 
@@ -30,7 +30,8 @@ if (count($podcasts)) {
 	$files = array();
 
 	foreach ($podcasts as $podcast) {
-		$files[$podcast->guid] = $podcast->getFilenameOnFilestore();
+		$files[$podcast->guid]['filename'] = $podcast->getFilenameOnFilestore();
+		$files[$podcast->guid]['title'] = $podcast->title;
 		echo $podcast->guid . " - "  . $podcast->getFilenameOnFilestore() . "\r\n";
 	}
 
@@ -42,7 +43,9 @@ if (count($podcasts)) {
 		mkdir($podcast_export_dir);
 	}
 
-	$filename = "{$user->username}-podcast-export.zip";
+	$uid = uniqid();
+
+	$filename = "{$user->username}-{$uid}-podcast-export.zip";
 
 	$filelocation = "{$podcast_export_dir}/{$filename}";
 
@@ -58,20 +61,22 @@ if (count($podcasts)) {
 	// Add files to zip
 	foreach ($files as $guid => $file) {
 		// Double-check that file exists
-		if (file_exists($file)) {
+		if (file_exists($file['filename'])) {
 			// Get file info
-			$file_info = pathinfo($file);
+			$file_info = pathinfo($file['filename']);
 			$file_extension = $file_info['extension'];
 
+			$title = elgg_get_friendly_title($file['title']);
+
 			// Set a friendlier file output name
-			$file_out = "{$user->username}_{$guid}.{$file_extension}";
+			$file_out = "{$user->username}_{$guid}_{$title}.{$file_extension}";
 
 			// Add to zip
-			$zip->addFile($file, $file_out);
+			$zip->addFile($file['filename'], $file_out);
 
 			// Check for errors
 			if (!$zip->status == ZIPARCHIVE::ER_OK) {
-				echo elgg_echo('todo:error:zipfileerror', array($file));
+				echo elgg_echo('todo:error:zipfileerror', array($file['filename']));
 				exit;
 			}
 		}
