@@ -137,6 +137,7 @@ function tgsadmin_init() {
 	$action_base = elgg_get_plugins_path() . 'tgsadmin/actions/tgsadmin';
 	elgg_register_action('tgsadmin/assign', "$action_base/assign.php", 'admin');
 	elgg_register_action('tgsadmin/assign_role', "$action_base/assign_role.php", 'admin');
+	elgg_register_action('tgsadmin/unassign_role', "$action_base/unassign_role.php", 'admin');
 	elgg_register_action('tgsadmin/setnotification', "$action_base/setnotification.php", 'admin');
 	elgg_register_action('tgsadmin/unassign', "$action_base/unassign.php", 'admin');
 	elgg_register_action('tgsadmin/requestnewpassword', "$action_base/requestnewpassword.php", 'public');

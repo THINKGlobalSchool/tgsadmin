@@ -25,6 +25,7 @@ return array(
 	'tgsadmin:label:enableexecution' => 'Enable execution time logging',
 	'tgsadmin:label:assignusers' => 'Select Users',
 	'tgsadmin:label:assigngroups' => 'Assign To',
+	'tgsadmin:label:unassigngroups' => 'Remove From',
 	'tgsadmin:label:unassign' => 'Unassign Users',
 	'tgsadmin:label:selectgroup' => 'Select Group',
 	'tgsadmin:label:remove' => 'Remove',
@@ -47,6 +48,7 @@ return array(
 	'tgsadmin:label:fatalemail' => 'Fatal error email',
 	'tgsadmin:label:assignuserstogroup' => 'Assign Individual Users To Group',
 	'tgsadmin:label:assignroletogroup' => 'Assign Role To Group',
+	'tgsadmin:label:unassignroletogroup' => 'Remove Role From Group',
 	'tgsadmin:label:removeusersfromgroup' => 'Remove Individual Users From Group',
 	'tgsadmin:label:cronsettings' => 'Cron Settings',
 	'tgsadmin:label:cronquerykey' => 'Cron Query Key',
@@ -55,6 +57,7 @@ return array(
 
 	// Confirmation
 	'tgsadmin:confirm:assigned' => 'Users successfully assigned to %s',
+	'tgsadmin:confirm:roleunassigned' => 'Users successfully removed from %s',
 	'tgsadmin:confirm:unassigned' => 'User successfully unassigned',
 	
 	// Error 

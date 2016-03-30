@@ -30,3 +30,9 @@ if ($guid = get_input('entity_guid')) {
 }
 
 echo elgg_view_module('inline', elgg_echo('tgsadmin:label:removeusersfromgroup'), $unassign_form);
+
+if (elgg_is_active_plugin('roles')) {
+	$form_vars = array('id' => 'unassign-form');
+	$unassign_roles_form =  elgg_view_form('tgsadmin/unassign_role', $form_vars, array());
+	echo elgg_view_module('inline', elgg_echo('tgsadmin:label:unassignroletogroup'), $unassign_roles_form);
+}
